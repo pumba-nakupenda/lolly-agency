@@ -27,9 +27,11 @@ const Services = () => {
 
     const handleScroll = (e: any, setIndex: Function) => {
         const scrollLeft = e.target.scrollLeft;
-        const width = e.target.offsetWidth * 0.8; // Match the 80vw width
-        const index = Math.round(scrollLeft / width);
-        setIndex(index);
+        const width = e.target.scrollWidth - e.target.clientWidth;
+        const scrollPercentage = scrollLeft / width;
+        const totalItems = e.target.children.length;
+        const index = Math.round(scrollPercentage * (totalItems - 1));
+        if (!isNaN(index)) setIndex(index);
     };
 
     const handleContactClick = () => {
@@ -366,7 +368,7 @@ const Services = () => {
 
                 {/* Grid for other expertises - Horizontal on Mobile */}
                 <div 
-                    className="flex overflow-x-auto snap-x snap-mandatory pt-12 pb-8 gap-6 px-[10vw] md:px-0 scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-10 md:pb-0 md:overflow-visible"
+                    className="flex overflow-x-auto snap-x snap-mandatory pt-12 pb-8 gap-5 px-6 md:px-0 scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-10 md:pb-0 md:overflow-visible"
                     onScroll={(e) => handleScroll(e, setActiveExpertise)}
                 >
                     {standardExpertises.map((service, index) => (
@@ -377,7 +379,7 @@ const Services = () => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ y: -15, scale: 1.02 }}
-                            className="min-w-[80vw] snap-center md:min-w-0 bg-surface/30 backdrop-blur-xl rounded-[2.5rem] border border-white/5 overflow-hidden hover:border-primary/20 transition-all duration-500 flex flex-col h-full group relative shadow-xl"
+                            className="min-w-[85vw] snap-center md:min-w-0 bg-surface/30 backdrop-blur-xl rounded-[2.5rem] border border-white/5 overflow-hidden hover:border-primary/20 transition-all duration-500 flex flex-col h-full group relative shadow-xl"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
                             <div className="p-10 flex-1 relative z-10">
