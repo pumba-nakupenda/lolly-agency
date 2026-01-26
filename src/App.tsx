@@ -48,12 +48,14 @@ function App() {
     return () => window.removeEventListener('open-contact-modal', handleOpenContact);
   }, []);
 
+  const isVCardPage = location.pathname === '/vcard';
+
   return (
     <MotionConfig reducedMotion={isMobile ? "always" : "user"}>
       <div className="min-h-screen font-sans text-gray-100 flex flex-col bg-background">
-        {!isMobile && <Preloader />}
-        <CustomCursor />
-        <Navbar />
+        {!isMobile && !isVCardPage && <Preloader />}
+        {!isVCardPage && <CustomCursor />}
+        {!isVCardPage && <Navbar />}
         <ContactModal
           isOpen={isContactModalOpen}
           onClose={() => setIsContactModalOpen(false)}
@@ -75,8 +77,8 @@ function App() {
           </AnimatePresence>
         </main>
 
-        <Footer />
-        <WhatsAppButton />
+        {!isVCardPage && <Footer />}
+        {!isVCardPage && <WhatsAppButton />}
       </div>
     </MotionConfig>
   );

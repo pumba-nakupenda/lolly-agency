@@ -1,8 +1,18 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Phone, Mail, Globe, MapPin, Download, Share2, Linkedin, Instagram, Facebook, Music2 } from "lucide-react";
+import { Phone, Mail, Globe, MapPin, Download, Share2, Linkedin, Instagram, Facebook, Music2, Smartphone } from "lucide-react";
 import { Button } from "../components/ui/Button";
 
 const VCard = () => {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
     const contactInfo = {
         firstName: "Amadou Mbaye",
         lastName: "GUEYE",
@@ -63,6 +73,26 @@ END:VCARD`;
         }
     };
 
+
+    if (!isMobile) {
+        return (
+            <div className="min-h-screen bg-black flex items-center justify-center p-4">
+                <div className="text-center space-y-4 max-w-md">
+                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto text-primary mb-6">
+                        <Smartphone size={32} />
+                    </div>
+                    <h1 className="text-2xl font-bold text-white">Version Mobile Uniquement</h1>
+                    <p className="text-gray-400">
+                        Cette carte de visite digitale est conçue pour être visualisée sur votre téléphone pour une meilleure expérience.
+                    </p>
+                    <div className="p-4 bg-white/5 rounded-xl border border-white/10 mt-8">
+                        <p className="text-sm text-gray-500">Ouvrez le lien sur votre mobile</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden">
             {/* Background Atmosphere */}
@@ -122,7 +152,7 @@ END:VCARD`;
                             onClick={generateVCard}
                         >
                             <Download size={16} className="mr-2" />
-                            Sauvegarder
+                            Garder Contact
                         </Button>
                         <Button
                             variant="outline"
