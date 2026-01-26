@@ -38,7 +38,7 @@ const Navbar = () => {
             >
                 <div className="container mx-auto px-6">
                     <div className={`relative flex items-center justify-between px-8 py-4 rounded-[2rem] transition-all duration-700 ${scrolled
-                        ? "bg-surface/40 backdrop-blur-2xl border border-white/10 shadow-2xl"
+                        ? "bg-surface/95 md:bg-surface/40 md:backdrop-blur-2xl border border-white/10 shadow-2xl"
                         : "bg-transparent border border-transparent"}`}
                     >
                         <Link to="/" className="relative z-10 group">
@@ -96,9 +96,9 @@ const Navbar = () => {
                     {isOpen && (
                         <motion.div
                             initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-                            animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
+                            animate={{ opacity: 1, backdropFilter: "blur(5px)" }}
                             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-                            className="fixed inset-0 z-[-1] bg-black/60 flex flex-col justify-center p-10"
+                            className="fixed inset-0 z-[-1] bg-black/90 flex flex-col justify-center p-10"
                         >
                             <div className="flex flex-col space-y-8">
                                 {navLinks.map((link, i) => (
