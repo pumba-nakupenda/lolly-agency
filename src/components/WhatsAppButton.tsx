@@ -29,7 +29,7 @@ const WhatsAppButton = () => {
     };
 
     return (
-        <div className="fixed bottom-[16.6vh] right-8 z-[100] flex flex-col items-center gap-4">
+        <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100] flex flex-col-reverse items-center gap-3">
             {/* Scroll to Top Button */}
             <AnimatePresence>
                 {showScrollTop && (
@@ -41,7 +41,7 @@ const WhatsAppButton = () => {
                         whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
                         whileTap={{ scale: 0.9 }}
                         onClick={scrollToTop}
-                        className="w-12 h-12 bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-full flex items-center justify-center shadow-2xl transition-colors mb-2"
+                        className="w-10 h-10 md:w-12 md:h-12 bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-full flex items-center justify-center shadow-2xl transition-colors"
                         title="Retour en haut"
                     >
                         <ChevronUp size={24} />
@@ -58,7 +58,7 @@ const WhatsAppButton = () => {
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 whileHover={{ scale: 1.1, y: -5 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(37,211,102,0.4)] hover:shadow-[0_15px_40px_rgba(37,211,102,0.6)] transition-shadow relative"
+                className="w-14 h-14 md:w-16 md:h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(37,211,102,0.4)] hover:shadow-[0_15px_40px_rgba(37,211,102,0.6)] transition-shadow relative"
                 title="Discutez avec nous sur WhatsApp"
             >
                 {/* Custom WhatsApp SVG for "Real" look */}
