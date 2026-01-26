@@ -32,7 +32,7 @@ const VCard = () => {
         ]
     };
 
-    const generateVCard = () => {
+    const generateVCard = async () => {
         const vcard = `BEGIN:VCARD
 VERSION:3.0
 N:${contactInfo.lastName};${contactInfo.firstName};;;
@@ -45,6 +45,24 @@ URL:${contactInfo.website}
 ADR;TYPE=WORK:;;${contactInfo.address};;;;
 END:VCARD`;
 
+        const file = new File([vcard], "contact.vcf", { type: "text/vcard" });
+
+        // Try to share the file directly (works on mobile handling 'Add to Contacts' better)
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+                await navigator.share({
+                    files: [file],
+                    title: `${contactInfo.firstName} ${contactInfo.lastName}`,
+                    text: 'Sauvegarder le contact',
+                });
+                return;
+            } catch (error) {
+                console.log('Error sharing file:', error);
+                // Fallback to download if share fails/cancelled
+            }
+        }
+
+        // Standard fallback: Trigger download
         const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
