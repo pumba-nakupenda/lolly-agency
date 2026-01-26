@@ -50,7 +50,7 @@ function App() {
   return (
     <MotionConfig reducedMotion={isMobile ? "always" : "user"}>
       <div className="min-h-screen font-sans text-gray-100 flex flex-col bg-background">
-        <Preloader />
+        {!isMobile && <Preloader />}
         <CustomCursor />
         <Navbar />
         <ContactModal
