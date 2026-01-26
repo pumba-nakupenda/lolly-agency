@@ -307,6 +307,17 @@ const Contact = () => {
                                 Besoin d'un conseil immédiat ? N'hésitez pas à nous solliciter via nos différents canaux. On adore discuter nouvelles idées !
                             </p>
 
+                            {/* Mobile Call Button */}
+                            <div className="block md:hidden mb-8">
+                                <Button 
+                                    className="w-full h-16 bg-accent hover:bg-accent/80 text-white rounded-2xl flex items-center justify-center gap-3 font-bold text-lg shadow-lg shadow-accent/20"
+                                    onClick={() => window.location.href = 'tel:+221772354747'}
+                                >
+                                    <Phone size={24} />
+                                    Appeler maintenant
+                                </Button>
+                            </div>
+
                             <div className="space-y-6">
                                 {[
                                     { icon: MapPin, title: "Notre Siège", content: "LOLLY SAS, Fass Delorme Rue 22x13, Appt 201", color: "text-primary" },
