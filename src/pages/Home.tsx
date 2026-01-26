@@ -2,11 +2,20 @@ import Hero from "../components/Hero";
 import Marquee from "../components/Marquee";
 import ClientLogos from "../components/ClientLogos";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
     const containerRef = useRef(null);
+    const [activeService, setActiveService] = useState(0);
+    const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+    const handleScroll = (e: any, setIndex: Function) => {
+        const scrollLeft = e.target.scrollLeft;
+        const width = e.target.offsetWidth;
+        const index = Math.round(scrollLeft / width);
+        setIndex(index);
+    };
 
     return (
         <div className="relative overflow-hidden bg-transparent" ref={containerRef}>
@@ -56,7 +65,10 @@ const Home = () => {
                     </div>
 
                     {/* Services Section - Horizontal Scroll on Mobile */}
-                    <div className="flex overflow-x-auto pb-8 gap-6 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 md:gap-8 md:pb-0 md:overflow-visible">
+                    <div 
+                        className="flex overflow-x-auto pb-8 gap-6 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 md:gap-8 md:pb-0 md:overflow-visible"
+                        onScroll={(e) => handleScroll(e, setActiveService)}
+                    >
                         {[
                             { id: "01", title: "Stratégie 360°", color: "bg-primary", desc: "Audit, positionnement et plan d'action pour connecter votre marque à son audience." },
                             { id: "02", title: "Design & Branding", color: "bg-accent", desc: "Identités visuelles fortes, chartes graphiques et supports qui impriment la rétine." },
@@ -69,7 +81,7 @@ const Home = () => {
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.2, duration: 0.8 }}
                                 whileHover={{ y: -15, scale: 1.02 }}
-                                className={`min-w-[85vw] md:min-w-0 snap-center p-10 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] hover:border-primary/30 transition-all duration-500 group relative overflow-hidden ${i === 1 ? 'md:mt-12' : i === 2 ? 'md:mt-24' : ''}`}
+                                className={`min-w-[80vw] md:min-w-0 snap-center p-10 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] hover:border-primary/30 transition-all duration-500 group relative overflow-hidden ${i === 1 ? 'md:mt-12' : i === 2 ? 'md:mt-24' : ''}`}
                             >
                                 <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
                                 <div className={`w-16 h-16 ${item.color} rounded-2xl mb-8 flex items-center justify-center text-black font-black text-2xl group-hover:rotate-12 transition-transform shadow-lg`}>
@@ -78,6 +90,15 @@ const Home = () => {
                                 <h3 className="text-3xl font-bold text-white mb-4 tracking-tight">{item.title}</h3>
                                 <p className="text-gray-400 text-lg leading-relaxed">{item.desc}</p>
                             </motion.div>
+                        ))}
+                    </div>
+                    {/* Pagination Dots for Services (Mobile Only) */}
+                    <div className="flex md:hidden justify-center gap-2 mt-4">
+                        {[0, 1, 2].map((i) => (
+                            <div 
+                                key={i} 
+                                className={`h-1.5 rounded-full transition-all duration-300 ${activeService === i ? "w-6 bg-primary" : "w-1.5 bg-white/20"}`}
+                            />
                         ))}
                     </div>
                 </div>
@@ -97,7 +118,10 @@ const Home = () => {
                     </motion.div>
 
                     {/* Testimonials Section - Horizontal Scroll on Mobile */}
-                    <div className="flex overflow-x-auto pb-8 gap-6 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-2 md:gap-10 md:pb-0 md:overflow-visible">
+                    <div 
+                        className="flex overflow-x-auto pb-8 gap-6 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-2 md:gap-10 md:pb-0 md:overflow-visible"
+                        onScroll={(e) => handleScroll(e, setActiveTestimonial)}
+                    >
                         {[
                             {
                                 quote: "J'ai été séduite par leur rigueur, leur professionnalisme et leur grande disponibilité. L'équipe de LOLLY a su allier stratégie et pragmatisme pour m'accompagner efficacement. Lors de ma dernière campagne de communication, ils ont été un véritable bouclier.",
@@ -119,7 +143,7 @@ const Home = () => {
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.2 }}
                                 whileHover={{ scale: 1.02 }}
-                                className="min-w-[85vw] md:min-w-0 snap-center p-12 bg-surface/20 backdrop-blur-md rounded-[3rem] border border-white/10 relative group"
+                                className="min-w-[80vw] md:min-w-0 snap-center p-12 bg-surface/20 backdrop-blur-md rounded-[3rem] border border-white/10 relative group"
                             >
                                 <span className={`text-8xl ${t.color === 'primary' ? 'text-primary/10' : 'text-accent/10'} font-serif absolute top-6 left-10 group-hover:scale-110 transition-transform`}>"</span>
                                 <p className="text-xl text-gray-300 italic mb-10 relative z-10 pt-8 leading-relaxed">"{t.quote}"</p>
@@ -137,6 +161,15 @@ const Home = () => {
                                     </div>
                                 </div>
                             </motion.div>
+                        ))}
+                    </div>
+                    {/* Pagination Dots for Testimonials (Mobile Only) */}
+                    <div className="flex md:hidden justify-center gap-2 mt-4">
+                        {[0, 1].map((i) => (
+                            <div 
+                                key={i} 
+                                className={`h-1.5 rounded-full transition-all duration-300 ${activeTestimonial === i ? "w-6 bg-accent" : "w-1.5 bg-white/20"}`}
+                            />
                         ))}
                     </div>
                 </div>
