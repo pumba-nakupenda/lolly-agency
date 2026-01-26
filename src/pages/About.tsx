@@ -27,7 +27,7 @@ const About = () => {
     };
 
     return (
-        <div className="pt-40 pb-20 px-6 min-h-screen relative overflow-hidden bg-transparent" ref={containerRef}>
+        <div className="pt-24 md:pt-40 pb-16 md:pb-20 px-6 min-h-screen relative overflow-hidden bg-transparent" ref={containerRef}>
             {/* Background Decorative Elements */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none hidden md:block">
                 <motion.div
@@ -52,35 +52,35 @@ const About = () => {
             </div>
 
             {/* Header */}
-            <div className="container mx-auto max-w-5xl text-center mb-32 relative z-10">
+            <div className="container mx-auto max-w-5xl text-center mb-16 md:mb-32 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: "easeOut" }}
                 >
                     <span className="bg-primary/10 text-primary font-bold tracking-[0.2em] uppercase text-[10px] px-4 py-1.5 rounded-full mb-6 inline-block border border-primary/20 backdrop-blur-sm">Notre ADN</span>
-                    <h1 className="text-5xl md:text-8xl font-serif font-bold text-white mb-10 tracking-tight leading-[1.1]">
+                    <h1 className="text-4xl md:text-8xl font-serif font-bold text-white mb-8 md:mb-10 tracking-tight leading-[1.1]">
                         Plus qu'une <span className="italic">agence</span>,<br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary pb-1 px-2">partenaire d'exception.</span>
                     </h1>
-                    <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
                         Nous croyons au pouvoir des idées qui bousculent le statu quo et aux images qui impriment une vision durable.
                     </p>
                 </motion.div>
             </div>
 
             {/* Notre Histoire */}
-            <section className="container mx-auto max-w-6xl mb-48 relative z-20 px-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <section className="container mx-auto max-w-6xl mb-24 md:mb-48 relative z-20 px-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="space-y-10"
+                        className="space-y-8 md:space-y-10"
                     >
                         <div className="space-y-4">
                             <span className="text-primary font-black uppercase text-[10px] tracking-[0.3em]">Genèse & Vision</span>
-                            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white tracking-tight">Notre <span className="italic">Odyssée</span></h2>
+                            <h2 className="text-3xl md:text-5xl font-serif font-bold text-white tracking-tight">Notre <span className="italic">Odyssée</span></h2>
                         </div>
 
                         <div className="space-y-8 relative">
@@ -88,22 +88,22 @@ const About = () => {
 
                             <motion.div
                                 whileHover={{ x: 10 }}
-                                className="pl-10 relative group"
+                                className="pl-8 md:pl-10 relative group"
                             >
                                 <div className="absolute left-[-2px] top-2 w-1 h-8 bg-primary shadow-[0_0_15px_rgba(255,215,0,0.5)] transition-all group-hover:h-full" />
-                                <h3 className="text-2xl font-bold text-white mb-4">L'Origine</h3>
-                                <p className="text-gray-400 text-lg leading-relaxed">
+                                <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">L'Origine</h3>
+                                <p className="text-gray-400 text-base md:text-lg leading-relaxed">
                                     Née d'une vision audacieuse en plein cœur de Dakar, LOLLY est l'histoire d'un engagement : transformer des idées en messages puissants. Fondée par Amadou Mbaye GUEYE, nous portons la conviction que la communication africaine mérite une excellence sans compromis.
                                 </p>
                             </motion.div>
 
                             <motion.div
                                 whileHover={{ x: 10 }}
-                                className="pl-10 relative group"
+                                className="pl-8 md:pl-10 relative group"
                             >
                                 <div className="absolute left-[-2px] top-2 w-1 h-8 bg-accent shadow-[0_0_15px_rgba(255,215,0,0.5)] transition-all group-hover:h-full" />
-                                <h3 className="text-2xl font-bold text-white mb-4">L'Évolution</h3>
-                                <p className="text-gray-400 text-lg leading-relaxed">
+                                <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">L'Évolution</h3>
+                                <p className="text-gray-400 text-base md:text-lg leading-relaxed">
                                     Aujourd'hui, nous dépassons le simple cadre de l'agence créative. En 2024, nous avons pivoté pour faire de la formation notre fer de lance, avec plus de <strong>75% de notre activité</strong> dédiée à l'empowerment des talents de demain.
                                 </p>
                             </motion.div>
@@ -115,14 +115,14 @@ const About = () => {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1 }}
-                        className="relative"
+                        className="relative mt-8 md:mt-0"
                     >
                         <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 via-transparent to-accent/20 rounded-[3rem] blur-2xl opacity-50" />
-                        <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-3xl bg-surface/20 backdrop-blur-sm p-4">
+                        <div className="relative rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-3xl bg-surface/20 backdrop-blur-sm p-3 md:p-4">
                             <img
                                 src="/assets/notre-odyssee.png"
                                 alt="L'Odyssée LOLLY"
-                                className="rounded-[2.5rem] w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                                className="rounded-[2rem] md:rounded-[2.5rem] w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
                         </div>
@@ -147,7 +147,7 @@ const About = () => {
             </section>
 
             {/* Philosophie & Valeurs */}
-            <section className="py-32 relative overflow-hidden">
+            <section className="py-20 md:py-32 relative overflow-hidden">
                 {/* Background decorative strip */}
                 <div className="absolute inset-0 bg-surface/30 border-y border-white/5 pointer-events-none" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,215,0,0.02)_0%,transparent_70%)] pointer-events-none" />
@@ -157,13 +157,13 @@ const About = () => {
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center max-w-4xl mx-auto mb-24"
+                        className="text-center max-w-4xl mx-auto mb-16 md:mb-24"
                     >
                         <span className="text-primary font-black uppercase text-[10px] tracking-[0.3em] mb-4 block">Notre Croyance</span>
-                        <h2 className="text-4xl md:text-7xl font-serif font-bold text-white mb-8 tracking-tight italic">
+                        <h2 className="text-3xl md:text-7xl font-serif font-bold text-white mb-6 md:mb-8 tracking-tight italic">
                             "Des mots qui touchent,<br />des images qui marquent"
                         </h2>
-                        <p className="text-gray-400 text-xl leading-relaxed max-w-2xl mx-auto">
+                        <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
                             Plus qu'un slogan, c'est notre boussole. Nous refusons le bruit inutile pour ne créer que du sens à haute intensité.
                         </p>
                     </motion.div>
@@ -173,7 +173,7 @@ const About = () => {
                         initial="hidden"
                         whileInView="show"
                         viewport={{ once: true, margin: "-50px" }}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
                     >
                         {[
                             { icon: Target, title: "Excellence", desc: "La médiocrité est notre seule ennemie. Nous visons le parfait équilibre." },
@@ -187,14 +187,14 @@ const About = () => {
                                 key={i}
                                 variants={itemVariants}
                                 whileHover={{ y: -15, scale: 1.02 }}
-                                className="p-10 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] hover:border-primary/40 transition-all duration-500 group relative overflow-hidden"
+                                className="p-8 md:p-10 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] hover:border-primary/40 transition-all duration-500 group relative overflow-hidden"
                             >
                                 <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
-                                <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 border border-white/10 group-hover:bg-primary/20 transition-all shadow-lg group-hover:rotate-12">
-                                    <item.icon size={30} className="text-primary group-hover:scale-110 transition-transform" />
+                                <div className="w-14 h-14 md:w-16 md:h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-6 md:mb-8 border border-white/10 group-hover:bg-primary/20 transition-all shadow-lg group-hover:rotate-12">
+                                    <item.icon size={26} className="text-primary group-hover:scale-110 transition-transform" />
                                 </div>
-                                <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">{item.title}</h3>
-                                <p className="text-gray-400 text-base leading-relaxed">{item.desc}</p>
+                                <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 tracking-tight">{item.title}</h3>
+                                <p className="text-gray-400 text-sm md:text-base leading-relaxed">{item.desc}</p>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -202,8 +202,8 @@ const About = () => {
             </section>
 
             {/* Expertise & Leadership */}
-            <section className="container mx-auto max-w-6xl mb-48 px-6 mt-20 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <section className="container mx-auto max-w-6xl mb-24 md:mb-48 px-6 mt-16 md:mt-20 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-start">
                     {/* Founder Highlight */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
@@ -211,49 +211,49 @@ const About = () => {
                         viewport={{ once: true }}
                         className="lg:col-span-5"
                     >
-                        <div className="sticky top-24">
-                            <div className="relative rounded-[3rem] overflow-hidden group mb-10 border border-white/10 shadow-3xl bg-surface/20 p-2">
+                        <div className="md:sticky md:top-24">
+                            <div className="relative rounded-[2.5rem] md:rounded-[3rem] overflow-hidden group mb-8 md:mb-10 border border-white/10 shadow-3xl bg-surface/20 p-2">
                                 <img
                                     src="/assets/amadou-mbaye-gueye.jpg"
                                     alt="Amadou Mbaye GUEYE"
-                                    className="rounded-[2.5rem] w-full aspect-square object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+                                    className="rounded-[2rem] md:rounded-[2.5rem] w-full aspect-square object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
                                 />
-                                <div className="absolute bottom-6 left-6 right-6 p-6 bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                                    <h3 className="text-xl font-bold text-white">Amadou Mbaye GUEYE</h3>
+                                <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 p-4 md:p-6 bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                                    <h3 className="text-lg md:text-xl font-bold text-white">Amadou Mbaye GUEYE</h3>
                                     <p className="text-primary text-[10px] font-black uppercase tracking-widest mt-1">Founder & Chief Visionary</p>
                                 </div>
                             </div>
-                            <div className="space-y-6">
-                                <h3 className="text-3xl font-serif font-bold text-white tracking-tight italic leading-snug">"Notre héritage sera l'autonomie des talents que nous formons."</h3>
-                                <p className="text-gray-400 text-lg leading-relaxed">Amadou Mbaye GUEYE incarne l'alliance rare entre une créativité organique et une maîtrise technique pointue en automatisation et IA.</p>
+                            <div className="space-y-4 md:space-y-6">
+                                <h3 className="text-2xl md:text-3xl font-serif font-bold text-white tracking-tight italic leading-snug">"Notre héritage sera l'autonomie des talents que nous formons."</h3>
+                                <p className="text-gray-400 text-base md:text-lg leading-relaxed">Amadou Mbaye GUEYE incarne l'alliance rare entre une créativité organique et une maîtrise technique pointue en automatisation et IA.</p>
                             </div>
                         </div>
                     </motion.div>
 
                     {/* Ecosystem Grid */}
-                    <div className="lg:col-span-7 space-y-12">
-                        <div className="space-y-4 mb-20">
+                    <div className="lg:col-span-7 space-y-10 md:space-y-12 mt-12 md:mt-0">
+                        <div className="space-y-4 mb-12 md:mb-20">
                             <span className="text-primary font-black uppercase text-[10px] tracking-[0.3em]">Notre Écosystème</span>
-                            <h2 className="text-4xl md:text-6xl font-serif font-bold text-white tracking-tight">Capacités <span className="italic">Intégrales</span></h2>
+                            <h2 className="text-3xl md:text-6xl font-serif font-bold text-white tracking-tight">Capacités <span className="italic">Intégrales</span></h2>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-8">
+                        <div className="grid grid-cols-1 gap-6 md:gap-8">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="bg-surface/20 backdrop-blur-md p-10 rounded-[2.5rem] border border-primary/20 relative group overflow-hidden"
+                                className="bg-surface/20 backdrop-blur-md p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-primary/20 relative group overflow-hidden"
                             >
-                                <div className="absolute top-0 right-0 p-8">
-                                    <span className="bg-primary text-black font-black uppercase text-[8px] tracking-[0.2em] px-3 py-1.5 rounded-lg shadow-lg">⭐ Core Competence</span>
+                                <div className="absolute top-0 right-0 p-6 md:p-8">
+                                    <span className="bg-primary text-black font-black uppercase text-[8px] tracking-[0.2em] px-2.5 py-1 rounded-lg shadow-lg">⭐ Core Competence</span>
                                 </div>
-                                <div className="flex flex-col sm:flex-row gap-8 items-start">
-                                    <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                        <Target size={32} />
+                                <div className="flex flex-col sm:flex-row gap-6 md:gap-8 items-start">
+                                    <div className="w-14 h-14 md:w-16 md:h-16 bg-primary/20 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                                        <Target size={28} md:size={32} />
                                     </div>
                                     <div>
-                                        <h3 className="text-2xl font-bold text-white mb-4">Conseil Stratégique High-End</h3>
-                                        <p className="text-gray-400 text-lg leading-relaxed mb-6">Nous auditons vos structures de communication pour y injecter de l'intelligence et de la performance durable.</p>
+                                        <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">Conseil Stratégique High-End</h3>
+                                        <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-6">Nous auditons vos structures de communication pour y injecter de l'intelligence et de la performance durable.</p>
                                         <div className="flex flex-wrap gap-2">
                                             {["Communication de Crise", "Branding Architecture", "Digital Transformation"].map((tag, i) => (
                                                 <span key={i} className="px-3 py-1 bg-white/5 rounded-lg text-[10px] font-bold text-gray-300 border border-white/5">{tag}</span>
@@ -263,7 +263,7 @@ const About = () => {
                                 </div>
                             </motion.div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                                 {[
                                     { title: "Lolly Academy", desc: "75% de notre activité est dédiée à la formation certifiante pour monter vos équipes en compétence.", icon: Award },
                                     { title: "Lolly Studio", desc: "Production 4K, Motion Design et Photographie Corporate de standard international.", icon: Rocket }
@@ -274,12 +274,12 @@ const About = () => {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: i * 0.2 }}
-                                        className="bg-surface/20 backdrop-blur-md p-8 rounded-[2.5rem] border border-white/10 group hover:border-white/30 transition-all duration-500"
+                                        className="bg-surface/20 backdrop-blur-md p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-white/10 group hover:border-white/30 transition-all duration-500"
                                     >
-                                        <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-all">
-                                            <box.icon size={22} className="text-white group-hover:text-primary transition-colors" />
+                                        <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-primary/20 transition-all">
+                                            <box.icon size={20} md:size={22} className="text-white group-hover:text-primary transition-colors" />
                                         </div>
-                                        <h3 className="text-xl font-bold text-white mb-4">{box.title}</h3>
+                                        <h3 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4">{box.title}</h3>
                                         <p className="text-gray-400 text-sm leading-relaxed">{box.desc}</p>
                                     </motion.div>
                                 ))}
@@ -290,25 +290,31 @@ const About = () => {
             </section>
 
             {/* Vision 2030 */}
-            <section className="container mx-auto px-6 mb-24 relative z-10">
+            <section className="container mx-auto px-6 mb-16 md:mb-24 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.98 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="bg-gradient-to-br from-gray-900 via-surface/40 to-black p-12 md:p-24 rounded-[4rem] border border-white/10 shadow-3xl text-center relative overflow-hidden group"
+                    className="bg-gradient-to-br from-gray-900 via-surface/40 to-black p-10 md:p-24 rounded-[3rem] md:rounded-[4rem] border border-white/10 shadow-3xl text-center relative overflow-hidden group"
                 >
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,215,0,0.05)_0%,transparent_70%)]" />
 
                     <div className="relative z-10 max-w-4xl mx-auto text-center">
-                        <span className="bg-primary/20 text-primary font-black uppercase text-[10px] tracking-[0.2em] px-4 py-2 rounded-full mb-10 inline-block border border-primary/20">Horizon 2030</span>
-                        <h2 className="text-4xl md:text-7xl font-serif font-bold text-white mb-10 tracking-tight leading-tight">Bâtir l'élite créative du <span className="text-primary italic">continent</span>.</h2>
-                        <p className="text-gray-400 text-xl leading-relaxed mb-16 max-w-2xl mx-auto">Notre ambition est claire : devenir la référence absolue de la formation digitale en Afrique de l'Ouest d'ici 5 ans.</p>
+                        <span className="bg-primary/20 text-primary font-black uppercase text-[10px] tracking-[0.2em] px-4 py-2 rounded-full mb-8 md:mb-10 inline-block border border-primary/20">Horizon 2030</span>
+                        <h2 className="text-3xl md:text-7xl font-serif font-bold text-white mb-8 md:mb-10 tracking-tight leading-tight">Bâtir l'élite créative du <span className="text-primary italic">continent</span>.</h2>
+                        <p className="text-gray-400 text-lg md:text-xl leading-relaxed mb-12 md:mb-16 max-w-2xl mx-auto">Notre ambition est claire : devenir la référence absolue de la formation digitale en Afrique de l'Ouest d'ici 5 ans.</p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                             <Button
                                 size="lg"
                                 className="h-16 px-12 text-lg font-black rounded-2xl shadow-xl shadow-primary/20"
-                                onClick={() => window.dispatchEvent(new CustomEvent('open-contact-modal'))}
+                                onClick={() => {
+                                    if (window.innerWidth < 768) {
+                                        window.location.href = '/contact';
+                                    } else {
+                                        window.dispatchEvent(new CustomEvent('open-contact-modal'));
+                                    }
+                                }}
                             >
                                 Rejoignez le mouvement
                             </Button>
