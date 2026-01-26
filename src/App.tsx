@@ -15,6 +15,7 @@ import Preloader from "./components/Preloader";
 import CustomCursor from "./components/CustomCursor";
 import PageTransition from "./components/PageTransition";
 import WhatsAppButton from "./components/WhatsAppButton";
+import VCard from "./pages/VCard";
 
 // Hook to detect mobile screen (width < 768px)
 const useIsMobile = () => {
@@ -68,6 +69,7 @@ function App() {
               <Route path="/about" element={<PageTransition><About /></PageTransition>} />
               <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
               <Route path="/legal" element={<PageTransition><Legal /></PageTransition>} />
+              <Route path="/vcard" element={<VCard />} />
               <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
             </Routes>
           </AnimatePresence>
