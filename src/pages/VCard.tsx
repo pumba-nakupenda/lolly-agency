@@ -33,21 +33,25 @@ const VCard = () => {
     };
 
     const generateVCard = async () => {
-        const vcard = `BEGIN:VCARD
-VERSION:3.0
-N:${contactInfo.lastName};${contactInfo.firstName};;;
-FN:${contactInfo.firstName} ${contactInfo.lastName}
-ORG:${contactInfo.company}
-TITLE:${contactInfo.title}
-TEL;TYPE=CELL:${contactInfo.phone}
-EMAIL:${contactInfo.email}
-URL:${contactInfo.website}
-ADR;TYPE=WORK:;;${contactInfo.address};;;;
-END:VCARD`;
+        // VCard 3.0 requires CRLF (\r\n) line endings
+        const vcard = [
+            'BEGIN:VCARD',
+            'VERSION:3.0',
+            `N:${contactInfo.lastName};${contactInfo.firstName};;;`,
+            `FN:${contactInfo.firstName} ${contactInfo.lastName}`,
+            `ORG:${contactInfo.company}`,
+            `TITLE:${contactInfo.title}`,
+            `TEL;TYPE=CELL:${contactInfo.phone}`,
+            `EMAIL:${contactInfo.email}`,
+            `URL:${contactInfo.website}`,
+            `ADR;TYPE=WORK:;;${contactInfo.address};;;;`,
+            'END:VCARD'
+        ].join('\r\n');
 
-        const file = new File([vcard], "contact.vcf", { type: "text/vcard" });
+        // text/x-vcard is often more compatible for direct sharing on mobile
+        const file = new File([vcard], "contact.vcf", { type: "text/x-vcard" });
 
-        // Try to share the file directly (works on mobile handling 'Add to Contacts' better)
+        // Try to share the file directly using Web Share API
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
             try {
                 await navigator.share({
@@ -55,14 +59,15 @@ END:VCARD`;
                     title: `${contactInfo.firstName} ${contactInfo.lastName}`,
                     text: 'Sauvegarder le contact',
                 });
-                return;
+                return; // Shared successfully
             } catch (error) {
-                console.log('Error sharing file:', error);
-                // Fallback to download if share fails/cancelled
+                if ((error as Error).name !== 'AbortError') {
+                    console.error('Error sharing file:', error);
+                }
             }
         }
 
-        // Standard fallback: Trigger download
+        // Fallback: Trigger download with correct MIME type
         const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
@@ -71,6 +76,7 @@ END:VCARD`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
     };
 
     const handleShare = async () => {
