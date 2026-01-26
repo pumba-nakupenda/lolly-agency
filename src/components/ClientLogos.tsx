@@ -24,19 +24,18 @@ const ClientLogos = () => {
                 <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-black to-transparent z-10"></div>
 
                 <motion.div
-                    className="flex items-center space-x-12 md:space-x-20"
-                    animate={{ x: [0, -1000] }}
+                    className="flex items-center space-x-16 md:space-x-24"
+                    animate={{ x: [0, -1200] }}
                     transition={{
                         repeat: Infinity,
                         repeatType: "loop",
-                        duration: 30,
+                        duration: 35,
                         ease: "linear",
                     }}
                 >
                     {allLogos.map((logo, i) => (
-                        <div key={i} className="flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300 opacity-50 hover:opacity-100">
-                            {/* Using placeholder text if images fail, but trying nice SVG logos */}
-                            <img src={logo} alt="Client Logo" className="h-6 md:h-10 object-contain brightness-0 invert" />
+                        <div key={i} className="flex-shrink-0 grayscale opacity-40 hover:opacity-100 transition-all duration-500">
+                            <img src={logo} alt="Client Logo" className="h-6 md:h-9 object-contain brightness-0 invert" />
                         </div>
                     ))}
                 </motion.div>

@@ -45,6 +45,7 @@ const Navbar = () => {
                     ? "py-4"
                     : "py-8"
                     }`}
+                style={{ paddingTop: scrolled ? 'max(1rem, env(safe-area-inset-top))' : 'max(2rem, env(safe-area-inset-top))' }}
             >
                 <div className="container mx-auto px-6">
                     <div className={`relative flex items-center justify-between px-8 py-4 rounded-[2rem] transition-all duration-700 ${scrolled
