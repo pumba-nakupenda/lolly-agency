@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 const Marquee = () => {
 
     return (
-        <div className="relative w-full overflow-hidden bg-primary py-4 border-y border-black">
+        <div className="relative w-full overflow-hidden bg-primary py-2 md:py-4 border-y border-black">
             <div className="flex whitespace-nowrap">
                 <motion.div
-                    className="flex space-x-12 text-black font-black text-4xl uppercase tracking-tighter"
+                    className="flex space-x-12 text-black font-black text-xl md:text-4xl uppercase tracking-tighter"
                     animate={{ x: [0, -1035] }}
                     transition={{
                         repeat: Infinity,

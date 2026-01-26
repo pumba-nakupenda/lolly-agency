@@ -71,7 +71,7 @@ const Hero = () => {
                         Agence de Communication & Formation
                     </motion.span>
 
-                    <h1 className="text-4xl md:text-9xl font-serif font-bold text-white mb-6 md:mb-8 leading-[1.1] tracking-tight">
+                    <h1 className="text-3xl md:text-9xl font-serif font-bold text-white mb-6 md:mb-8 leading-[1.1] tracking-tight">
                         Des mots qui <span className="text-primary italic">touchent</span>, <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-accent pb-1 px-2">images qui marquent</span>
                     </h1>

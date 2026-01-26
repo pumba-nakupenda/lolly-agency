@@ -317,7 +317,7 @@ const Services = () => {
                     className="text-center mb-12 md:mb-24"
                 >
                     <span className="text-primary font-bold tracking-[0.2em] uppercase text-[10px] mb-4 block">Notre Catalogue</span>
-                    <h2 className="text-4xl md:text-7xl font-serif font-bold text-white mb-6">Nos Expertises <span className="text-primary italic">Majeures</span></h2>
+                    <h2 className="text-3xl md:text-7xl font-serif font-bold text-white mb-6">Nos Expertises <span className="text-primary italic">Majeures</span></h2>
                     <p className="text-gray-400 max-w-xl mx-auto text-lg">Des services d'élite conçus pour propulser chaque aspect de votre présence de marque.</p>
                 </motion.div>
 

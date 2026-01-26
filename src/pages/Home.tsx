@@ -46,7 +46,7 @@ const Home = () => {
                             className="max-w-3xl"
                         >
                             <span className="text-primary font-bold tracking-[0.2em] uppercase text-[10px] mb-4 block">Notre Philosophie</span>
-                            <h2 className="text-3xl md:text-7xl font-serif font-bold mb-8 text-white tracking-tight">
+                            <h2 className="text-2xl md:text-7xl font-serif font-bold mb-8 text-white tracking-tight">
                                 Nous ne suivons pas <br />les tendances. <span className="text-primary italic pb-1 px-2">On les crée.</span>
                             </h2>
                             <p className="text-base md:text-xl text-gray-400 leading-relaxed max-w-xl">
