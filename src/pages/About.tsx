@@ -249,7 +249,7 @@ const About = () => {
                                 </div>
                                 <div className="flex flex-col sm:flex-row gap-6 md:gap-8 items-start">
                                     <div className="w-14 h-14 md:w-16 md:h-16 bg-primary/20 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                        <Target size={28} md:size={32} />
+                                        <Target size={32} />
                                     </div>
                                     <div>
                                         <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">Conseil Stratégique High-End</h3>
@@ -277,7 +277,7 @@ const About = () => {
                                         className="bg-surface/20 backdrop-blur-md p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-white/10 group hover:border-white/30 transition-all duration-500"
                                     >
                                         <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-primary/20 transition-all">
-                                            <box.icon size={20} md:size={22} className="text-white group-hover:text-primary transition-colors" />
+                                            <box.icon size={22} className="text-white group-hover:text-primary transition-colors" />
                                         </div>
                                         <h3 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4">{box.title}</h3>
                                         <p className="text-gray-400 text-sm leading-relaxed">{box.desc}</p>
