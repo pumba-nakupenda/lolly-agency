@@ -1,22 +1,30 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "./ui/Button";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const Hero = () => {
     const ref = useRef(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["start start", "end start"],
     });
 
-    const textY = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
+    const textY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "200%"]);
 
     return (
         <section ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden bg-transparent">
 
             {/* Advanced Background Decorative Elements */}
-            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none hidden md:block">
                 <motion.div
                     animate={{
                         scale: [1, 1.2, 1],
