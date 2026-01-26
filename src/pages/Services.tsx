@@ -5,12 +5,22 @@ import { Button } from "../components/ui/Button";
 
 const Services = () => {
     const stepsRef = useRef(null);
+    const [activeStep, setActiveStep] = useState(0);
+    const [activeExpertise, setActiveExpertise] = useState(0);
+
     const { scrollYProgress } = useScroll({
         target: stepsRef,
         offset: ["start center", "end center"]
     });
 
     const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+    const handleScroll = (e: any, setIndex: Function) => {
+        const scrollLeft = e.target.scrollLeft;
+        const width = e.target.offsetWidth;
+        const index = Math.round(scrollLeft / width);
+        setIndex(index);
+    };
 
     const expertises = [
         {
@@ -112,11 +122,14 @@ const Services = () => {
             cta: "Exemples de contenus"
         }
     ];
+    
+    // Filter out consulting for the general grid/carousel
+    const standardExpertises = expertises.filter(s => s.id !== "consulting");
 
     return (
         <div className="pt-40 pb-20 px-6 min-h-screen relative overflow-hidden bg-transparent">
             {/* Premium Background Decorative Elements */}
-            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none hidden md:block">
                 <motion.div
                     animate={{
                         scale: [1, 1.2, 1],
@@ -164,100 +177,115 @@ const Services = () => {
                     />
                 </div>
 
-                {[
-                    {
-                        step: "01",
-                        title: "Découverte",
-                        subtitle: "L'Immersion",
-                        icon: Search,
-                        content: "Analyse profonde de votre ADN. Nous écoutons, observons et décortiquons vos enjeux pour bâtir sur du solide.",
-                        details: ["Audit Stratégique", "Psychologie Cible", "KPIs Business"],
-                        deliverable: "Diagnostic & Vision Partagée"
-                    },
-                    {
-                        step: "02",
-                        title: "Stratégie",
-                        subtitle: "L'Architecture",
-                        icon: Target,
-                        content: "Conception de votre trajectoire unique. Un plan de bataille précis pour dominer votre marché digital.",
-                        details: ["Positionnement", "Ligne Éditoriale", "Écosystème Digital"],
-                        deliverable: "Roadmap Stratégique 360°"
-                    },
-                    {
-                        step: "03",
-                        title: "Création",
-                        subtitle: "L'Exécution",
-                        icon: PenTool,
-                        content: "L'alchimie entre design et impact. Nos créatifs donnent vie à votre stratégie avec une précision chirurgicale.",
-                        details: ["Identité Visuelle", "Production Audiovisuelle", "Storytelling"],
-                        deliverable: "Assets de Haute Qualité"
-                    },
-                    {
-                        step: "04",
-                        title: "Diffusion",
-                        subtitle: "L'Expansion",
-                        icon: BarChart,
-                        content: "Mise en orbite et optimisation. Nous assurons le rayonnement de votre marque et mesurons chaque victoire.",
-                        details: ["Social Media Ads", "Growth Monitoring", "Reporting Data"],
-                        deliverable: "Croissance & ROI Mesurable"
-                    }
-                ].map((item, index) => (
-                    <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8, delay: index * 0.1 }}
-                        className={`flex flex-col md:flex-row items-center gap-12 md:gap-20 mb-32 md:mb-48 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
-                    >
-                        <div className="md:w-[45%]">
-                            <motion.div
-                                whileHover={{ y: -5, borderColor: "rgba(255, 209, 0, 0.3)" }}
-                                className={`p-10 md:p-12 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] transition-all duration-500 relative group shadow-2xl ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}
-                            >
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none rounded-[2.5rem]" />
-
-                                <div className={`block md:hidden absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-black font-black z-20 shadow-xl border-4 border-background`}>
-                                    {item.step}
-                                </div>
-
-                                <h3 className="text-3xl font-bold text-white mb-4">
-                                    <span className="text-primary text-[10px] font-black uppercase tracking-[0.3em] mb-3 block">{item.subtitle}</span>
-                                    {item.title}
-                                </h3>
-                                <p className="text-gray-400 mb-8 text-lg leading-relaxed">{item.content}</p>
-
-                                <div className={`flex flex-wrap gap-3 mb-12 ${index % 2 === 0 ? '' : 'md:justify-end'}`}>
-                                    {item.details.map((detail, i) => (
-                                        <span key={i} className="px-4 py-1.5 bg-white/5 rounded-xl text-[10px] uppercase font-bold tracking-widest text-gray-300 border border-white/5">{detail}</span>
-                                    ))}
-                                </div>
-
-                                <div className={`flex items-center gap-3 text-sm text-gray-300 border-t border-white/5 pt-6 ${index % 2 === 0 ? '' : 'md:justify-end'}`}>
-                                    <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center">
-                                        <CheckCircle size={16} className="text-green-500" />
-                                    </div>
-                                    <p className="font-medium inline-flex items-center gap-2">
-                                        <span className="text-gray-500 text-xs font-bold uppercase tracking-widest">Livrable :</span> {item.deliverable}
-                                    </p>
-                                </div>
-                            </motion.div>
-                        </div>
-
+                {/* Mobile Carousel Container for Steps */}
+                <div 
+                    className="flex overflow-x-auto snap-x snap-mandatory pb-8 gap-4 md:block scrollbar-hide"
+                    onScroll={(e) => handleScroll(e, setActiveStep)}
+                >
+                    {[
+                        {
+                            step: "01",
+                            title: "Découverte",
+                            subtitle: "L'Immersion",
+                            icon: Search,
+                            content: "Analyse profonde de votre ADN. Nous écoutons, observons et décortiquons vos enjeux pour bâtir sur du solide.",
+                            details: ["Audit Stratégique", "Psychologie Cible", "KPIs Business"],
+                            deliverable: "Diagnostic & Vision Partagée"
+                        },
+                        {
+                            step: "02",
+                            title: "Stratégie",
+                            subtitle: "L'Architecture",
+                            icon: Target,
+                            content: "Conception de votre trajectoire unique. Un plan de bataille précis pour dominer votre marché digital.",
+                            details: ["Positionnement", "Ligne Éditoriale", "Écosystème Digital"],
+                            deliverable: "Roadmap Stratégique 360°"
+                        },
+                        {
+                            step: "03",
+                            title: "Création",
+                            subtitle: "L'Exécution",
+                            icon: PenTool,
+                            content: "L'alchimie entre design et impact. Nos créatifs donnent vie à votre stratégie avec une précision chirurgicale.",
+                            details: ["Identité Visuelle", "Production Audiovisuelle", "Storytelling"],
+                            deliverable: "Assets de Haute Qualité"
+                        },
+                        {
+                            step: "04",
+                            title: "Diffusion",
+                            subtitle: "L'Expansion",
+                            icon: BarChart,
+                            content: "Mise en orbite et optimisation. Nous assurons le rayonnement de votre marque et mesurons chaque victoire.",
+                            details: ["Social Media Ads", "Growth Monitoring", "Reporting Data"],
+                            deliverable: "Croissance & ROI Mesurable"
+                        }
+                    ].map((item, index) => (
                         <motion.div
-                            initial={{ scale: 0, rotate: -45 }}
-                            whileInView={{ scale: 1, rotate: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ type: "spring", stiffness: 200, delay: 0.3 }}
-                            className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-20 h-20 bg-background border-4 border-white/10 rounded-2xl items-center justify-center z-10 shadow-2xl group overflow-hidden"
+                            key={index}
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.8, delay: index * 0.1 }}
+                            className={`min-w-[85vw] snap-center md:min-w-0 flex flex-col md:flex-row items-center gap-6 md:gap-20 md:mb-32 lg:mb-48 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
                         >
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-10 group-hover:opacity-100 transition-opacity" />
-                            <item.icon className="text-white relative z-10 group-hover:scale-110 transition-transform" size={32} />
-                        </motion.div>
+                            <div className="md:w-[45%] w-full">
+                                <motion.div
+                                    whileHover={{ y: -5, borderColor: "rgba(255, 209, 0, 0.3)" }}
+                                    className={`p-8 md:p-12 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] transition-all duration-500 relative group shadow-2xl h-full ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none rounded-[2.5rem]" />
 
-                        <div className="md:w-[45%]"></div>
-                    </motion.div>
-                ))}
+                                    <div className={`md:hidden absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-black font-black z-20 shadow-xl border-4 border-background text-lg`}>
+                                        {item.step}
+                                    </div>
+
+                                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 mt-4 md:mt-0 text-center md:text-inherit">
+                                        <span className="text-primary text-[10px] font-black uppercase tracking-[0.3em] mb-2 block">{item.subtitle}</span>
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-gray-400 mb-8 text-base md:text-lg leading-relaxed text-center md:text-inherit">{item.content}</p>
+
+                                    <div className={`flex flex-wrap gap-2 justify-center mb-8 ${index % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}>
+                                        {item.details.map((detail, i) => (
+                                            <span key={i} className="px-3 py-1.5 bg-white/5 rounded-xl text-[9px] md:text-[10px] uppercase font-bold tracking-widest text-gray-300 border border-white/5">{detail}</span>
+                                        ))}
+                                    </div>
+
+                                    <div className={`flex items-center justify-center gap-3 text-sm text-gray-300 border-t border-white/5 pt-6 ${index % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}>
+                                        <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center">
+                                            <CheckCircle size={16} className="text-green-500" />
+                                        </div>
+                                        <p className="font-medium inline-flex items-center gap-2 text-xs md:text-sm">
+                                            <span className="text-gray-500 font-bold uppercase tracking-widest">Livrable :</span> {item.deliverable}
+                                        </p>
+                                    </div>
+                                </motion.div>
+                            </div>
+
+                            <motion.div
+                                initial={{ scale: 0, rotate: -45 }}
+                                whileInView={{ scale: 1, rotate: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ type: "spring", stiffness: 200, delay: 0.3 }}
+                                className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-20 h-20 bg-background border-4 border-white/10 rounded-2xl items-center justify-center z-10 shadow-2xl group overflow-hidden"
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-10 group-hover:opacity-100 transition-opacity" />
+                                <item.icon className="text-white relative z-10 group-hover:scale-110 transition-transform" size={32} />
+                            </motion.div>
+
+                            <div className="md:w-[45%] hidden md:block"></div>
+                        </motion.div>
+                    ))}
+                </div>
+                {/* Pagination Dots for Steps (Mobile Only) */}
+                <div className="flex md:hidden justify-center gap-2 mt-2 mb-12">
+                    {[0, 1, 2, 3].map((i) => (
+                        <div 
+                            key={i} 
+                            className={`h-1.5 rounded-full transition-all duration-300 ${activeStep === i ? "w-6 bg-primary" : "w-1.5 bg-white/20"}`}
+                        />
+                    ))}
+                </div>
             </section>
 
             {/* Expertises Section */}
@@ -318,9 +346,12 @@ const Services = () => {
                     </div>
                 </motion.div>
 
-                {/* Grid for other expertises */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {expertises.filter(s => s.id !== "consulting").map((service, index) => (
+                {/* Grid for other expertises - Horizontal on Mobile */}
+                <div 
+                    className="flex overflow-x-auto snap-x snap-mandatory pb-8 gap-6 scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-10 md:pb-0 md:overflow-visible"
+                    onScroll={(e) => handleScroll(e, setActiveExpertise)}
+                >
+                    {standardExpertises.map((service, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 30 }}
@@ -328,7 +359,7 @@ const Services = () => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ y: -15, scale: 1.02 }}
-                            className="bg-surface/30 backdrop-blur-xl rounded-[2.5rem] border border-white/5 overflow-hidden hover:border-primary/20 transition-all duration-500 flex flex-col h-full group relative shadow-xl"
+                            className="min-w-[85vw] snap-center md:min-w-0 bg-surface/30 backdrop-blur-xl rounded-[2.5rem] border border-white/5 overflow-hidden hover:border-primary/20 transition-all duration-500 flex flex-col h-full group relative shadow-xl"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
                             <div className="p-10 flex-1 relative z-10">
@@ -365,6 +396,15 @@ const Services = () => {
                                 </Button>
                             </div>
                         </motion.div>
+                    ))}
+                </div>
+                {/* Pagination Dots for Expertises (Mobile Only) */}
+                <div className="flex md:hidden justify-center gap-2 mt-2">
+                    {standardExpertises.map((_, i) => (
+                        <div 
+                            key={i} 
+                            className={`h-1.5 rounded-full transition-all duration-300 ${activeExpertise === i ? "w-6 bg-accent" : "w-1.5 bg-white/20"}`}
+                        />
                     ))}
                 </div>
             </section>
