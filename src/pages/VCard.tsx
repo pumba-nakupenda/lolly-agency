@@ -49,26 +49,8 @@ const VCard = () => {
         ].join('\r\n');
 
         // text/x-vcard is often more compatible for direct sharing on mobile
-        const file = new File([vcard], "contact.vcf", { type: "text/x-vcard" });
-
-        // Try to share the file directly using Web Share API
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            try {
-                await navigator.share({
-                    files: [file],
-                    title: `${contactInfo.firstName} ${contactInfo.lastName}`,
-                    text: 'Sauvegarder le contact',
-                });
-                return; // Shared successfully
-            } catch (error) {
-                if ((error as Error).name !== 'AbortError') {
-                    console.error('Error sharing file:', error);
-                }
-            }
-        }
-
-        // Fallback: Trigger download with correct MIME type
-        const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+        // Trigger download - on mobile this typically prompts to "Open in Contacts"
+        const blob = new Blob([vcard], { type: "text/x-vcard;charset=utf-8" });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
