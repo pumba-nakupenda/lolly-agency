@@ -1,9 +1,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "./ui/Button";
 import { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
     const ref = useRef(null);
+    const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -19,6 +21,14 @@ const Hero = () => {
     });
 
     const textY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "200%"]);
+
+    const handleContactClick = () => {
+        if (isMobile) {
+            navigate('/contact');
+        } else {
+            window.dispatchEvent(new CustomEvent('open-contact-modal'));
+        }
+    };
 
     return (
         <section ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden bg-transparent">
@@ -83,7 +93,7 @@ const Hero = () => {
                             size="lg"
                             variant="outline"
                             className="h-16 px-10 text-lg font-bold rounded-2xl border-white/10 hover:bg-white/5 backdrop-blur-sm"
-                            onClick={() => window.dispatchEvent(new CustomEvent('open-contact-modal'))}
+                            onClick={handleContactClick}
                         >
                             Lancer un projet
                         </Button>

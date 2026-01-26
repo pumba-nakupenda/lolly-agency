@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/Button";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -27,6 +28,15 @@ const Navbar = () => {
     ];
 
     const isActive = (path: string) => location.pathname === path;
+
+    const handleContactClick = () => {
+        if (window.innerWidth < 768) {
+            setIsOpen(false);
+            navigate('/contact');
+        } else {
+            window.dispatchEvent(new CustomEvent('open-contact-modal'));
+        }
+    };
 
     return (
         <>
@@ -72,7 +82,7 @@ const Navbar = () => {
                             <div className={location.pathname === '/contact' ? "invisible pointer-events-none" : ""}>
                                 <Button
                                     className="h-10 px-6 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary/10"
-                                    onClick={() => window.dispatchEvent(new CustomEvent('open-contact-modal'))}
+                                    onClick={handleContactClick}
                                 >
                                     Lancer un projet
                                 </Button>
@@ -123,10 +133,7 @@ const Navbar = () => {
                                     transition={{ delay: 0.5 }}
                                     className="pt-10 border-t border-white/10"
                                 >
-                                    <Button className="w-full h-16 text-xl" onClick={() => {
-                                        setIsOpen(false);
-                                        window.dispatchEvent(new CustomEvent('open-contact-modal'));
-                                    }}>
+                                    <Button className="w-full h-16 text-xl" onClick={handleContactClick}>
                                         Contactez-nous
                                     </Button>
                                 </motion.div>

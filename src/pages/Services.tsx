@@ -1,12 +1,22 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { BookOpen, Target, PenTool, BarChart, Rocket, HeartHandshake, Award, CheckCircle, Search, Video, Image, Users, MessageSquare, FileText, ChevronDown } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "../components/ui/Button";
+import { useNavigate } from "react-router-dom";
 
 const Services = () => {
     const stepsRef = useRef(null);
+    const navigate = useNavigate();
     const [activeStep, setActiveStep] = useState(0);
     const [activeExpertise, setActiveExpertise] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     const { scrollYProgress } = useScroll({
         target: stepsRef,
@@ -17,9 +27,17 @@ const Services = () => {
 
     const handleScroll = (e: any, setIndex: Function) => {
         const scrollLeft = e.target.scrollLeft;
-        const width = e.target.offsetWidth;
+        const width = e.target.offsetWidth * 0.8; // Match the 80vw width
         const index = Math.round(scrollLeft / width);
         setIndex(index);
+    };
+
+    const handleContactClick = () => {
+        if (isMobile) {
+            navigate('/contact');
+        } else {
+            window.dispatchEvent(new CustomEvent('open-contact-modal'));
+        }
     };
 
     const expertises = [
@@ -348,7 +366,7 @@ const Services = () => {
 
                 {/* Grid for other expertises - Horizontal on Mobile */}
                 <div 
-                    className="flex overflow-x-auto snap-x snap-mandatory pt-12 pb-8 gap-6 scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-10 md:pb-0 md:overflow-visible"
+                    className="flex overflow-x-auto snap-x snap-mandatory pt-12 pb-8 gap-6 px-[10vw] md:px-0 scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-10 md:pb-0 md:overflow-visible"
                     onScroll={(e) => handleScroll(e, setActiveExpertise)}
                 >
                     {standardExpertises.map((service, index) => (
@@ -359,7 +377,7 @@ const Services = () => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ y: -15, scale: 1.02 }}
-                            className="min-w-[85vw] snap-center md:min-w-0 bg-surface/30 backdrop-blur-xl rounded-[2.5rem] border border-white/5 overflow-hidden hover:border-primary/20 transition-all duration-500 flex flex-col h-full group relative shadow-xl"
+                            className="min-w-[80vw] snap-center md:min-w-0 bg-surface/30 backdrop-blur-xl rounded-[2.5rem] border border-white/5 overflow-hidden hover:border-primary/20 transition-all duration-500 flex flex-col h-full group relative shadow-xl"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
                             <div className="p-10 flex-1 relative z-10">
@@ -390,7 +408,7 @@ const Services = () => {
                                 <Button
                                     variant="outline"
                                     className="w-full border-none bg-white/5 hover:bg-primary hover:text-black rounded-2xl h-12 font-bold transition-all text-xs uppercase tracking-widest"
-                                    onClick={() => window.dispatchEvent(new CustomEvent('open-contact-modal'))}
+                                    onClick={handleContactClick}
                                 >
                                     Demander un devis
                                 </Button>
@@ -603,7 +621,7 @@ const Services = () => {
                             <Button
                                 size="lg"
                                 className="h-16 px-12 text-lg font-black rounded-2xl shadow-xl shadow-primary/20"
-                                onClick={() => window.dispatchEvent(new CustomEvent('open-contact-modal'))}
+                                onClick={handleContactClick}
                             >
                                 Réserver mon créneau
                             </Button>
