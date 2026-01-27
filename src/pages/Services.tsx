@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 const Services = () => {
     const stepsRef = useRef(null);
     const navigate = useNavigate();
-    const [activeStep, setActiveStep] = useState(0);
     const [activeExpertise, setActiveExpertise] = useState(0);
     const [activeDiff, setActiveDiff] = useState(0);
     const [activeResult, setActiveResult] = useState(0);
@@ -146,7 +145,7 @@ const Services = () => {
             cta: "Exemples de contenus"
         }
     ];
-    
+
     // Filter out consulting for the general grid/carousel
     const standardExpertises = expertises.filter(s => s.id !== "consulting");
 
@@ -194,6 +193,7 @@ const Services = () => {
 
             {/* Steps Section */}
             <section className="container mx-auto max-w-6xl mb-24 md:mb-48 relative z-10 px-0 md:px-6" ref={stepsRef}>
+                {/* Desktop Line */}
                 <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-white/10 transform -translate-x-1/2">
                     <motion.div
                         style={{ scaleY: scaleY }}
@@ -201,10 +201,15 @@ const Services = () => {
                     />
                 </div>
 
-                {/* Mobile Carousel Container for Steps */}
-                <div 
-                    className="flex overflow-x-auto snap-x snap-mandatory pt-12 pb-8 gap-4 px-6 md:block md:px-0 md:pt-0 scrollbar-hide"
-                    onScroll={(e) => handleScroll(e, setActiveStep)}
+                {/* Mobile Line (New) */}
+                <div className="md:hidden absolute left-8 top-12 bottom-0 w-px bg-white/10">
+                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-primary/50 to-transparent" />
+                </div>
+
+                {/* Steps Container */}
+                <div
+                    className="flex flex-col gap-12 px-6 pt-4 pb-8 md:block md:px-0 md:pt-0"
+                // Removed onScroll handler for mobile as we are not using scroll spy for active step in vertical mode same way
                 >
                     {[
                         {
@@ -248,18 +253,21 @@ const Services = () => {
                             key={index}
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 0.8, delay: index * 0.1 }}
-                            className={`min-w-[85vw] snap-center md:min-w-0 flex flex-col md:flex-row items-center gap-6 md:gap-20 md:mb-32 lg:mb-48 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className={`w-full md:min-w-0 flex flex-col md:flex-row items-center gap-6 md:gap-20 md:mb-32 lg:mb-48 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} pl-12 md:pl-0 relative`}
                         >
+                            {/* Mobile Timeline Dot */}
+                            <div className="md:hidden absolute left-[2px] top-8 w-3 h-3 bg-primary rounded-full border-2 border-black z-20 shadow-[0_0_10px_rgba(255,215,0,0.5)]" />
+
                             <div className="md:w-[45%] w-full">
                                 <motion.div
                                     whileHover={{ y: -5, borderColor: "rgba(255, 209, 0, 0.3)" }}
-                                    className={`p-6 md:p-12 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2.5rem] transition-all duration-500 relative group shadow-2xl h-full ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}
+                                    className={`p-6 md:p-12 bg-surface/30 backdrop-blur-xl border border-white/5 rounded-[2rem] md:rounded-[2.5rem] transition-all duration-500 relative group shadow-xl h-full ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}
                                 >
-                                    <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none rounded-[2.5rem]" />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none rounded-[2rem]" />
 
-                                    <div className={`md:hidden absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-black font-black z-30 shadow-[0_10px_20px_rgba(0,0,0,0.3)] border-4 border-surface text-2xl`}>
+                                    <div className={`md:hidden text-primary font-black text-4xl opacity-20 absolute top-4 right-6`}>
                                         {item.step}
                                     </div>
 
@@ -299,15 +307,6 @@ const Services = () => {
 
                             <div className="md:w-[45%] hidden md:block"></div>
                         </motion.div>
-                    ))}
-                </div>
-                {/* Pagination Dots for Steps (Mobile Only) */}
-                <div className="flex md:hidden justify-center gap-2 mt-2 mb-12">
-                    {[0, 1, 2, 3].map((i) => (
-                        <div 
-                            key={i} 
-                            className={`h-1.5 rounded-full transition-all duration-300 ${activeStep === i ? "w-6 bg-primary" : "w-1.5 bg-white/20"}`}
-                        />
                     ))}
                 </div>
             </section>
@@ -371,7 +370,7 @@ const Services = () => {
                 </motion.div>
 
                 {/* Grid for other expertises - Horizontal on Mobile */}
-                <div 
+                <div
                     className="flex overflow-x-auto snap-x snap-mandatory pt-12 pb-8 gap-5 px-6 md:px-0 scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-10 md:pb-0 md:overflow-visible"
                     onScroll={(e) => handleScroll(e, setActiveExpertise)}
                 >
@@ -425,8 +424,8 @@ const Services = () => {
                 {/* Pagination Dots for Expertises (Mobile Only) */}
                 <div className="flex md:hidden justify-center gap-2 mt-2">
                     {standardExpertises.map((_, i) => (
-                        <div 
-                            key={i} 
+                        <div
+                            key={i}
                             className={`h-1.5 rounded-full transition-all duration-300 ${activeExpertise === i ? "w-6 bg-accent" : "w-1.5 bg-white/20"}`}
                         />
                     ))}
@@ -451,7 +450,7 @@ const Services = () => {
                         </h2>
                     </motion.div>
 
-                    <div 
+                    <div
                         className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 px-6 md:px-0 scrollbar-hide md:grid md:grid-cols-3 lg:grid-cols-5 md:overflow-visible"
                         onScroll={(e) => handleScroll(e, setActiveDiff)}
                     >
@@ -482,8 +481,8 @@ const Services = () => {
                     {/* Pagination Dots for Differentiators (Mobile Only) */}
                     <div className="flex md:hidden justify-center gap-2 mt-4">
                         {[0, 1, 2, 3, 4].map((i) => (
-                            <div 
-                                key={i} 
+                            <div
+                                key={i}
                                 className={`h-1.5 rounded-full transition-all duration-300 ${activeDiff === i ? "w-6 bg-primary" : "w-1.5 bg-white/20"}`}
                             />
                         ))}
@@ -504,7 +503,7 @@ const Services = () => {
                     </h2>
                 </motion.div>
 
-                <div 
+                <div
                     className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 px-6 md:px-0 scrollbar-hide md:grid md:grid-cols-3 md:gap-10 md:overflow-visible max-w-6xl mx-auto"
                     onScroll={(e) => handleScroll(e, setActiveResult)}
                 >
@@ -542,8 +541,8 @@ const Services = () => {
                 {/* Pagination Dots for Results (Mobile Only) */}
                 <div className="flex md:hidden justify-center gap-2 mt-4">
                     {[0, 1, 2].map((i) => (
-                        <div 
-                            key={i} 
+                        <div
+                            key={i}
                             className={`h-1.5 rounded-full transition-all duration-300 ${activeResult === i ? "w-6 bg-primary" : "w-1.5 bg-white/20"}`}
                         />
                     ))}
@@ -607,11 +606,10 @@ const Services = () => {
                         <button
                             key={i}
                             onClick={() => setActiveCatalogue(i)}
-                            className={`whitespace-nowrap px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${
-                                activeCatalogue === i 
-                                ? "bg-primary text-black" 
+                            className={`whitespace-nowrap px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${activeCatalogue === i
+                                ? "bg-primary text-black"
                                 : "bg-white/5 text-gray-400 border border-white/10"
-                            }`}
+                                }`}
                         >
                             {tab}
                         </button>

@@ -25,8 +25,8 @@ const VCard = () => {
         website: "https://lolly.sn",
         address: "Fass Delorme Rue 22x13, Dakar, Sénégal",
         avatar: "/assets/amadou-mbaye-gueye.jpg",
-        bio: "J'accompagne les entreprises et les institutions dans leur stratégie de communication et leur transformation digitale.",
-        services: ["Stratégie", "Branding", "Communication", "Formation"],
+        bio: "Agence de conseil en communication. Nous accompagnons les entreprises et institutions dans leur stratégie et leur transformation.",
+        services: ["Conseil", "stratégie", "Branding", "Formation"],
         socials: [
             { icon: Linkedin, url: "https://www.linkedin.com/company/lolly-sas" },
             { icon: Instagram, url: "https://www.instagram.com/agence_lolly/" },

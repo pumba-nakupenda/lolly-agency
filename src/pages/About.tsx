@@ -8,7 +8,7 @@ const About = () => {
     const [activeValue, setActiveValue] = useState(0);
 
     useEffect(() => {
-        const checkMobile = () => {}; // Keep for consistency if needed or remove
+        const checkMobile = () => { }; // Keep for consistency if needed or remove
         checkMobile();
     }, []);
 
@@ -100,7 +100,7 @@ const About = () => {
                                 <div className="absolute left-[-2px] top-2 w-1 h-8 bg-accent shadow-[0_0_15px_rgba(255,215,0,0.5)] transition-all group-hover:h-full" />
                                 <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">L'Évolution</h3>
                                 <p className="text-gray-400 text-sm md:text-lg leading-relaxed">
-                                    Aujourd'hui, nous dépassons le simple cadre de l'agence créative. En 2024, nous avons pivoté pour faire de la formation notre fer de lance, avec plus de <strong>75% de notre activité</strong> dédiée à l'empowerment des talents de demain.
+                                    Aujourd'hui, nous nous positionnons comme une pure agence de conseil. Nous structurons la communication des entreprises pour en faire un levier de croissance durable, soutenue par nos pôles de production et de formation.
                                 </p>
                             </motion.div>
                         </div>
@@ -164,7 +164,7 @@ const About = () => {
                         </p>
                     </motion.div>
 
-                    <div 
+                    <div
                         className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-8 scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 md:overflow-visible"
                         onScroll={(e) => handleScroll(e, setActiveValue)}
                     >
@@ -197,8 +197,8 @@ const About = () => {
                     {/* Pagination Dots for Values (Mobile Only) */}
                     <div className="flex md:hidden justify-center gap-2 mt-2">
                         {[0, 1, 2, 3, 4, 5].map((i) => (
-                            <div 
-                                key={i} 
+                            <div
+                                key={i}
                                 className={`h-1.5 rounded-full transition-all duration-300 ${activeValue === i ? "w-6 bg-primary" : "w-1.5 bg-white/20"}`}
                             />
                         ))}
@@ -270,7 +270,7 @@ const About = () => {
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                                 {[
-                                    { title: "Lolly Academy", desc: "75% de notre activité est dédiée à la formation certifiante pour monter vos équipes en compétence.", icon: Award },
+                                    { title: "Lolly Academy", desc: "Nos modules de formation certifiante pour monter vos équipes en compétence et garantir l'autonomie.", icon: Award },
                                     { title: "Lolly Studio", desc: "Production 4K, Motion Design et Photographie Corporate de standard international.", icon: Rocket }
                                 ].map((box, i) => (
                                     <motion.div

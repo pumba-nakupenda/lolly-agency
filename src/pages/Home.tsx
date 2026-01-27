@@ -50,7 +50,7 @@ const Home = () => {
                                 Nous ne suivons pas <br />les tendances. <span className="text-primary italic pb-1 px-2">On les crée.</span>
                             </h2>
                             <p className="text-lg md:text-xl text-gray-400 leading-relaxed max-w-xl">
-                                LOLLY est votre partenaire stratégique pour dominer le paysage digital sénégalais avec une longueur d'avance.
+                                Agence de Conseil en Communication. LOLLY est votre partenaire stratégique pour dominer le paysage digital sénégalais avec une longueur d'avance.
                             </p>
                         </motion.div>
                         <Link to="/services" className="w-full md:w-auto">
@@ -65,7 +65,7 @@ const Home = () => {
                     </div>
 
                     {/* Services Section - Horizontal Scroll on Mobile */}
-                    <div 
+                    <div
                         className="flex overflow-x-auto pb-8 gap-5 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 md:gap-8 md:pb-0 md:overflow-visible"
                         onScroll={(e) => handleScroll(e, setActiveService)}
                     >
@@ -95,8 +95,8 @@ const Home = () => {
                     {/* Pagination Dots for Services (Mobile Only) */}
                     <div className="flex md:hidden justify-center gap-2 mt-4">
                         {[0, 1, 2].map((i) => (
-                            <div 
-                                key={i} 
+                            <div
+                                key={i}
                                 className={`h-1.5 rounded-full transition-all duration-300 ${activeService === i ? "w-6 bg-primary" : "w-1.5 bg-white/20"}`}
                             />
                         ))}
@@ -104,34 +104,34 @@ const Home = () => {
                 </div>
             </section>
 
-                        <section className="py-16 md:py-32 relative overflow-hidden">
+            <section className="py-16 md:py-32 relative overflow-hidden">
 
-                            <div className="container mx-auto px-6 relative z-10">
+                <div className="container mx-auto px-6 relative z-10">
 
-                                <motion.div
+                    <motion.div
 
-                                    initial={{ opacity: 0 }}
+                        initial={{ opacity: 0 }}
 
-                                    whileInView={{ opacity: 1 }}
+                        whileInView={{ opacity: 1 }}
 
-                                    className="mb-12 md:mb-20 text-center"
+                        className="mb-12 md:mb-20 text-center"
 
-                                >
+                    >
 
-                                    <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Témoignages</span>
+                        <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Témoignages</span>
 
-                                    <h2 className="text-3xl md:text-6xl font-serif font-bold text-white tracking-tight leading-tight">
+                        <h2 className="text-3xl md:text-6xl font-serif font-bold text-white tracking-tight leading-tight">
 
-                                        La Preuve par <span className="italic">l'Impact</span>
+                            La Preuve par <span className="italic">l'Impact</span>
 
-                                    </h2>
+                        </h2>
 
-                                </motion.div>
+                    </motion.div>
 
-            
+
 
                     {/* Testimonials Section - Horizontal Scroll on Mobile */}
-                    <div 
+                    <div
                         className="flex md:grid overflow-x-auto md:overflow-visible pb-8 md:pb-0 gap-5 md:gap-10 snap-x snap-mandatory md:grid-cols-2"
                         onScroll={(e) => handleScroll(e, setActiveTestimonial)}
                     >
@@ -177,25 +177,25 @@ const Home = () => {
                         ))}
                     </div>
 
-                                {/* Pagination Dots for Testimonials (Mobile Only) */}
+                    {/* Pagination Dots for Testimonials (Mobile Only) */}
 
-                                <div className="flex md:hidden justify-center gap-2 mt-4">
+                    <div className="flex md:hidden justify-center gap-2 mt-4">
 
-                                    {[0, 1].map((i) => (
+                        {[0, 1].map((i) => (
 
-                                        <div 
+                            <div
 
-                                            key={i} 
+                                key={i}
 
-                                            className={`h-1.5 rounded-full transition-all duration-300 ${activeTestimonial === i ? "w-6 bg-accent" : "w-1.5 bg-white/20"}`}
+                                className={`h-1.5 rounded-full transition-all duration-300 ${activeTestimonial === i ? "w-6 bg-accent" : "w-1.5 bg-white/20"}`}
 
-                                        />
+                            />
 
-                                    ))}
+                        ))}
 
-                                </div>
+                    </div>
 
-                            </div>
+                </div>
 
                 {/* Background testimo decoration */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[150px] -z-10 hidden md:block" />

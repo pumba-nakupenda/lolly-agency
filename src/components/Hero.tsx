@@ -68,7 +68,7 @@ const Hero = () => {
                         transition={{ delay: 0.2 }}
                         className="inline-block py-2 px-5 rounded-full bg-white/5 backdrop-blur-md text-primary font-bold tracking-[0.2em] uppercase text-[10px] md:text-xs mb-6 md:mb-8 border border-white/10"
                     >
-                        Agence de Communication & Formation
+                        Agence de Conseil en Communication
                     </motion.span>
 
                     <h1 className="text-3xl md:text-9xl font-serif font-bold text-white mb-6 md:mb-8 leading-[1.1] tracking-tight">
@@ -77,8 +77,7 @@ const Hero = () => {
                     </h1>
 
                     <p className="text-sm md:text-2xl text-gray-400 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4 md:px-0">
-                        Propulsez votre marque vers l'excellence avec des stratégies créatives
-                        et des formations professionnelles de standard international.
+                        Propulsez votre marque vers l'excellence. Nous sommes votre partenaire stratégique pour une communication à fort impact.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
