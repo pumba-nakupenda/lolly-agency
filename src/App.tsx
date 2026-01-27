@@ -9,6 +9,7 @@ import Portfolio from "./pages/Portfolio";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Legal from "./pages/Legal";
+import CGV from "./pages/CGV";
 import NotFound from "./pages/NotFound";
 import ContactModal from "./components/ContactModal";
 import Preloader from "./components/Preloader";
@@ -71,6 +72,7 @@ function App() {
               <Route path="/about" element={<PageTransition><About /></PageTransition>} />
               <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
               <Route path="/legal" element={<PageTransition><Legal /></PageTransition>} />
+              <Route path="/cgv" element={<PageTransition><CGV /></PageTransition>} />
               <Route path="/vcard" element={<VCard />} />
               <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
             </Routes>

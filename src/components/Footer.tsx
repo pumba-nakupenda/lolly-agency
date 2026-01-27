@@ -70,7 +70,7 @@ const Footer = () => {
                     <p>&copy; {new Date().getFullYear()} LOLLY Agency. Tous droits réservés.</p>
                     <div className="flex gap-6">
                         <Link to="/legal" className="hover:text-primary transition-colors">Mentions Légales</Link>
-                        <Link to="/legal" className="hover:text-primary transition-colors">Politique de Confidentialité</Link>
+                        <Link to="/cgv" className="hover:text-primary transition-colors">CGV</Link>
                     </div>
                 </div>
             </div>
