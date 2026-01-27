@@ -5,14 +5,17 @@ import { useState } from "react";
 
 const WEBHOOK_URL = "https://n8n.srv812544.hstgr.cloud/webhook/2ee87114-da42-4f38-85e8-c4a99ba04a3f";
 
+import { useSearchParams } from "react-router-dom";
+
 const Contact = () => {
+    const [searchParams] = useSearchParams();
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         phone: "",
         countryCode: "+221",
-        subject: "Consulting Stratégique",
+        subject: searchParams.get('subject') || "Consulting Stratégique",
         message: ""
     });
 
@@ -309,7 +312,7 @@ const Contact = () => {
 
                             {/* Mobile Call Button */}
                             <div className="block md:hidden mb-8">
-                                <Button 
+                                <Button
                                     className="w-full h-14 bg-accent hover:bg-accent/80 text-white rounded-2xl flex items-center justify-center gap-3 font-bold text-base shadow-lg shadow-accent/20"
                                     onClick={() => window.location.href = 'tel:+221772354747'}
                                 >

@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "./ui/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [servicesOpen, setServicesOpen] = useState(false); // For Mobile accordion
+    const [hoverServices, setHoverServices] = useState(false); // For Desktop hover
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -19,15 +20,28 @@ const Navbar = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // Structure for nav links, allowing sub-items
     const navLinks = [
         { name: "Accueil", href: "/" },
-        { name: "Services", href: "/services" },
+        {
+            name: "Services",
+            href: "/services",
+            subItems: [
+                { name: "Consulting", href: "/services/consulting" },
+                { name: "Formations", href: "/services/formations" },
+                { name: "Production Vidéo", href: "/services/video" },
+                { name: "Design Graphique", href: "/services/design" },
+                { name: "Photographie", href: "/services/photo" },
+                { name: "Community Management", href: "/services/social" },
+                { name: "Création de Contenu", href: "/services/content" },
+            ]
+        },
         { name: "Portfolio", href: "/portfolio" },
         { name: "À propos", href: "/about" },
         { name: "Contact", href: "/contact" },
     ];
 
-    const isActive = (path: string) => location.pathname === path;
+    const isActive = (path: string) => location.pathname === path || (path !== '/' && location.pathname.startsWith(path));
 
     const handleContactClick = () => {
         if (window.innerWidth < 768) {
@@ -64,21 +78,61 @@ const Navbar = () => {
                         {/* Desktop Menu */}
                         <div className="hidden md:flex items-center space-x-10">
                             {navLinks.map((link) => (
-                                <Link
+                                <div
                                     key={link.name}
-                                    to={link.href}
-                                    className="relative transition-colors font-bold text-[10px] uppercase tracking-[0.2em] group py-2"
+                                    className="relative group"
+                                    onMouseEnter={() => link.subItems && setHoverServices(true)}
+                                    onMouseLeave={() => link.subItems && setHoverServices(false)}
                                 >
-                                    <span className={`relative z-10 transition-colors ${isActive(link.href) ? "text-primary" : "text-gray-400 group-hover:text-white"}`}>
-                                        {link.name}
-                                    </span>
-                                    {isActive(link.href) && (
-                                        <motion.div
-                                            layoutId="activeNav"
-                                            className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full shadow-[0_0_10px_rgba(255,215,0,0.5)]"
-                                        />
-                                    )}
-                                </Link>
+                                    <div className="flex items-center gap-1">
+                                        <Link
+                                            to={link.href}
+                                            className="relative transition-colors font-bold text-[10px] uppercase tracking-[0.2em] group py-2"
+                                            onClick={(e) => {
+                                                // Optional: if clicking "Services" should just open dropdown on touch devices or do nothing if hover works
+                                            }}
+                                        >
+                                            <span className={`relative z-10 transition-colors ${isActive(link.href) ? "text-primary" : "text-gray-400 group-hover:text-white"}`}>
+                                                {link.name}
+                                            </span>
+                                            {isActive(link.href) && (
+                                                <motion.div
+                                                    layoutId="activeNav"
+                                                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full shadow-[0_0_10px_rgba(255,215,0,0.5)]"
+                                                />
+                                            )}
+                                        </Link>
+                                        {link.subItems && (
+                                            <ChevronDown size={12} className={`text-gray-400 transition-transform duration-300 ${hoverServices && link.name === 'Services' ? 'rotate-180 text-primary' : ''}`} />
+                                        )}
+                                    </div>
+
+                                    {/* Dropdown Menu */}
+                                    <AnimatePresence>
+                                        {link.subItems && hoverServices && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                transition={{ duration: 0.2 }}
+                                                className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-surface/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden p-2"
+                                            >
+                                                <div className="flex flex-col gap-1">
+                                                    {link.subItems.map((subItem) => (
+                                                        <Link
+                                                            key={subItem.name}
+                                                            to={subItem.href}
+                                                            className="px-4 py-3 rounded-xl hover:bg-white/10 text-gray-300 hover:text-white transition-all text-xs font-bold uppercase tracking-wider flex items-center justify-between group/item"
+                                                        >
+                                                            {subItem.name}
+                                                            <ChevronRight size={12} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-primary" />
+                                                        </Link>
+                                                    ))}
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
                             ))}
                             <div className={location.pathname === '/contact' ? "invisible pointer-events-none" : ""}>
                                 <Button
@@ -109,30 +163,63 @@ const Navbar = () => {
                             initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
                             animate={{ opacity: 1, backdropFilter: "blur(5px)" }}
                             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-                            className="fixed inset-0 z-[-1] bg-black/90 flex flex-col justify-center p-10"
+                            className="fixed inset-0 z-[-1] bg-black/95 flex flex-col pt-32 px-10 pb-10 overflow-y-auto"
                         >
-                            <div className="flex flex-col space-y-8">
-                                {navLinks.map((link, i) => (
-                                    <motion.div
-                                        key={link.name}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.1 }}
-                                    >
-                                        <Link
-                                            to={link.href}
-                                            className={`text-5xl font-serif font-bold ${isActive(link.href) ? "text-primary" : "text-white"}`}
-                                            onClick={() => setIsOpen(false)}
-                                        >
-                                            {link.name}
-                                        </Link>
-                                    </motion.div>
+                            <div className="flex flex-col space-y-6">
+                                {navLinks.map((link) => (
+                                    <div key={link.name} className="flex flex-col">
+                                        <div className="flex items-center justify-between">
+                                            <Link
+                                                to={link.href}
+                                                className={`text-4xl font-serif font-bold ${isActive(link.href) ? "text-primary" : "text-white"}`}
+                                                onClick={() => !link.subItems && setIsOpen(false)}
+                                            >
+                                                {link.name}
+                                            </Link>
+                                            {link.subItems && (
+                                                <button
+                                                    onClick={() => setServicesOpen(!servicesOpen)}
+                                                    className="p-2 border border-white/10 rounded-full bg-white/5"
+                                                >
+                                                    <ChevronDown
+                                                        size={24}
+                                                        className={`text-white transition-transform duration-300 ${servicesOpen ? 'rotate-180' : ''}`}
+                                                    />
+                                                </button>
+                                            )}
+                                        </div>
+
+                                        {/* Mobile Submenu Accordion */}
+                                        <AnimatePresence>
+                                            {link.subItems && servicesOpen && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <div className="flex flex-col gap-4 pl-4 pt-6 border-l border-white/10 ml-2 mt-2">
+                                                        {link.subItems.map((subItem) => (
+                                                            <Link
+                                                                key={subItem.name}
+                                                                to={subItem.href}
+                                                                className={`text-lg font-medium ${isActive(subItem.href) ? "text-primary" : "text-gray-400"}`}
+                                                                onClick={() => setIsOpen(false)}
+                                                            >
+                                                                {subItem.name}
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
                                 ))}
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.5 }}
-                                    className="pt-10 border-t border-white/10"
+                                    className="pt-10 border-t border-white/10 mt-auto"
                                 >
                                     <Button className="w-full h-16 text-xl" onClick={handleContactClick}>
                                         Contactez-nous

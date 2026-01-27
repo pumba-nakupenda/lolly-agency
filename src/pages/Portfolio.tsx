@@ -228,7 +228,7 @@ const Portfolio = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="flex overflow-x-auto md:justify-center gap-2 md:gap-3 mb-12 md:mb-20 px-6 md:px-0 scrollbar-hide py-4 -my-4"
+                    className="flex flex-wrap md:justify-center gap-2 md:gap-3 mb-12 md:mb-20 px-6 md:px-0 py-4 -my-4"
                 >
                     {categories.map((cat) => (
                         <button
@@ -246,7 +246,7 @@ const Portfolio = () => {
                 </motion.div>
 
                 {/* Grid / Carousel */}
-                <div 
+                <div
                     className="flex overflow-x-auto snap-x snap-mandatory pb-8 gap-6 px-6 md:px-0 scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-10 md:pb-0 md:overflow-visible"
                     onScroll={handleScroll}
                 >
@@ -267,20 +267,24 @@ const Portfolio = () => {
                                     alt={project.title}
                                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-95 transition-all duration-500"></div>
-
-                                <div className="absolute bottom-0 left-0 p-6 md:p-10 w-full transform md:translate-y-0 md:group-hover:translate-y-0 transition-all duration-500">
-                                    <span className="bg-primary/20 text-primary text-[10px] font-black uppercase tracking-[0.3em] px-3 py-1.5 rounded-lg mb-4 block border border-primary/20 w-fit backdrop-blur-md">
+                                {/* Category Tag - Top Left */}
+                                <div className="absolute top-5 left-5 z-20">
+                                    <span className="bg-primary text-black text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-lg shadow-2xl border border-white/10 backdrop-blur-sm">
                                         {project.category}
                                     </span>
-                                    <h3 className="text-xl md:text-3xl font-bold text-white mb-4 leading-tight group-hover:text-primary transition-colors">
+                                </div>
+
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-all duration-500"></div>
+
+                                <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full flex flex-col justify-end min-h-[40%] transform md:translate-y-0 translate-y-2 group-hover:translate-y-0 transition-all duration-500 z-10">
+                                    <h3 className="text-xl md:text-2xl font-bold text-white mb-3 leading-tight group-hover:text-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] line-clamp-2">
                                         {project.title}
                                     </h3>
-                                    <p className="hidden md:block text-gray-400 text-sm opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100 line-clamp-2 leading-relaxed">
+                                    <p className="hidden md:block text-gray-400 text-[11px] opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100 line-clamp-2 leading-relaxed">
                                         {project.description}
                                     </p>
-                                    <div className="mt-4 md:mt-8 flex items-center gap-3 text-white text-[10px] font-black uppercase tracking-[0.3em] opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all delay-200">
-                                        Explorer le cas <div className="h-px w-8 bg-primary" />
+                                    <div className="mt-4 flex items-center gap-2 text-white text-[9px] font-black uppercase tracking-[0.3em] opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all delay-200">
+                                        Explorer <div className="h-px w-6 bg-primary" />
                                     </div>
                                 </div>
                             </motion.div>
@@ -291,8 +295,8 @@ const Portfolio = () => {
                 {/* Pagination Dots for Portfolio (Mobile Only) */}
                 <div className="flex md:hidden justify-center gap-2 mt-4">
                     {filteredProjects.map((_, i) => (
-                        <div 
-                            key={i} 
+                        <div
+                            key={i}
                             className={`h-1.5 rounded-full transition-all duration-300 ${activeIndex === i ? "w-6 bg-primary" : "w-1.5 bg-white/20"}`}
                         />
                     ))}

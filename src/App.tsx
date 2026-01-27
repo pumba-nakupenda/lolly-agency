@@ -11,6 +11,13 @@ import Contact from "./pages/Contact";
 import Legal from "./pages/Legal";
 import CGV from "./pages/CGV";
 import NotFound from "./pages/NotFound";
+import Consulting from "./pages/services/Consulting";
+import Formations from "./pages/services/Formations";
+import ProductionVideo from "./pages/services/ProductionVideo";
+import DesignGraphique from "./pages/services/DesignGraphique";
+import Photographie from "./pages/services/Photographie";
+import CommunityManagement from "./pages/services/CommunityManagement";
+import CreationContenu from "./pages/services/CreationContenu";
 import ContactModal from "./components/ContactModal";
 import Preloader from "./components/Preloader";
 import CustomCursor from "./components/CustomCursor";
@@ -68,6 +75,13 @@ function App() {
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<PageTransition><Home /></PageTransition>} />
               <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
+              <Route path="/services/consulting" element={<PageTransition><Consulting /></PageTransition>} />
+              <Route path="/services/formations" element={<PageTransition><Formations /></PageTransition>} />
+              <Route path="/services/video" element={<PageTransition><ProductionVideo /></PageTransition>} />
+              <Route path="/services/design" element={<PageTransition><DesignGraphique /></PageTransition>} />
+              <Route path="/services/photo" element={<PageTransition><Photographie /></PageTransition>} />
+              <Route path="/services/social" element={<PageTransition><CommunityManagement /></PageTransition>} />
+              <Route path="/services/content" element={<PageTransition><CreationContenu /></PageTransition>} />
               <Route path="/portfolio" element={<PageTransition><Portfolio /></PageTransition>} />
               <Route path="/about" element={<PageTransition><About /></PageTransition>} />
               <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />

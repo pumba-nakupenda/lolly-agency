@@ -37,11 +37,14 @@ const Services = () => {
         if (!isNaN(index)) setIndex(index);
     };
 
-    const handleContactClick = () => {
+    const handleContactClick = (subject?: string) => {
+        const subjectParam = subject ? `?subject=${encodeURIComponent(subject)}` : '';
+        const eventDetail = subject ? { detail: { subject } } : undefined;
+
         if (isMobile) {
-            navigate('/contact');
+            navigate(`/contact${subjectParam}`);
         } else {
-            window.dispatchEvent(new CustomEvent('open-contact-modal'));
+            window.dispatchEvent(new CustomEvent('open-contact-modal', eventDetail));
         }
     };
 
@@ -60,6 +63,7 @@ const Services = () => {
                 "Consulting digital & transformation"
             ],
             cta: "En savoir plus",
+            link: "/services/consulting",
             highlight: true
         },
         {
@@ -74,7 +78,8 @@ const Services = () => {
                 "Design graphique & branding"
             ],
             extra: "Formats : Présentiel • En ligne • Intra-entreprise • Certifiants",
-            cta: "Voir le catalogue"
+            cta: "Voir le catalogue",
+            link: "/services/formations"
         },
         {
             id: 2,
@@ -88,7 +93,8 @@ const Services = () => {
                 "Contenus réseaux sociaux (Reels, Stories)",
                 "Motion design & animation"
             ],
-            cta: "Voir nos réalisations"
+            cta: "Voir nos réalisations",
+            link: "/services/video"
         },
         {
             id: 3,
@@ -101,7 +107,8 @@ const Services = () => {
                 "Design digital (bannières, posts, infographies)",
                 "UI/UX et maquettes web"
             ],
-            cta: "Découvrir notre portfolio"
+            cta: "Découvrir notre portfolio",
+            link: "/services/design"
         },
         {
             id: 4,
@@ -114,7 +121,8 @@ const Services = () => {
                 "Photographie produits & packshots",
                 "Reportage corporate & lifestyle"
             ],
-            cta: "Voir la galerie"
+            cta: "Voir la galerie",
+            link: "/services/photo"
         },
         {
             id: 5,
@@ -128,7 +136,8 @@ const Services = () => {
                 "Social ads & campagnes publicitaires",
                 "Analytics & reporting mensuel"
             ],
-            cta: "Nos formules"
+            cta: "Nos formules",
+            link: "/services/social"
         },
         {
             id: 6,
@@ -142,7 +151,8 @@ const Services = () => {
                 "Newsletters & emailings",
                 "Livres blancs & e-books"
             ],
-            cta: "Exemples de contenus"
+            cta: "Exemples de contenus",
+            link: "/services/content"
         }
     ];
 
@@ -329,9 +339,10 @@ const Services = () => {
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mb-16 group"
+                    className="mb-16 group cursor-pointer"
+                    onClick={() => navigate('/services/consulting')}
                 >
-                    <div className="bg-surface/20 backdrop-blur-2xl border border-primary/20 rounded-[3rem] p-10 md:p-16 relative overflow-hidden shadow-2xl">
+                    <div className="bg-surface/20 backdrop-blur-2xl border border-primary/20 rounded-[3rem] p-10 md:p-16 relative overflow-hidden shadow-2xl transition-all duration-300 group-hover:border-primary/50 group-hover:shadow-[0_0_50px_rgba(255,215,0,0.15)]">
                         <div className="absolute top-0 right-0 p-8">
                             <span className="bg-primary text-black font-black uppercase text-[10px] tracking-widest px-4 py-2 rounded-full shadow-lg">⭐ Cœur de métier</span>
                         </div>
@@ -382,7 +393,8 @@ const Services = () => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ y: -15, scale: 1.02 }}
-                            className="min-w-[85vw] snap-center md:min-w-0 bg-surface/30 backdrop-blur-xl rounded-[2.5rem] border border-white/5 overflow-hidden hover:border-primary/20 transition-all duration-500 flex flex-col h-full group relative shadow-xl"
+                            className="min-w-[85vw] snap-center md:min-w-0 bg-surface/30 backdrop-blur-xl rounded-[2.5rem] border border-white/5 overflow-hidden hover:border-primary/20 transition-all duration-500 flex flex-col h-full group relative shadow-xl cursor-pointer"
+                            onClick={() => navigate(service.link || '/contact')}
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
                             <div className="p-6 md:p-10 flex-1 relative z-10">
@@ -413,9 +425,12 @@ const Services = () => {
                                 <Button
                                     variant="outline"
                                     className="w-full border-none bg-white/5 hover:bg-primary hover:text-black rounded-2xl h-12 font-bold transition-all text-xs uppercase tracking-widest"
-                                    onClick={handleContactClick}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        navigate(service.link || '/contact');
+                                    }}
                                 >
-                                    Demander un devis
+                                    {service.cta}
                                 </Button>
                             </div>
                         </motion.div>
@@ -667,7 +682,7 @@ const Services = () => {
                             <Button
                                 size="lg"
                                 className="h-16 px-12 text-lg font-black rounded-2xl shadow-xl shadow-primary/20"
-                                onClick={handleContactClick}
+                                onClick={() => handleContactClick()}
                             >
                                 Réserver mon créneau
                             </Button>
