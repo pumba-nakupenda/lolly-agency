@@ -237,7 +237,7 @@ const VCard = () => {
                         </a>
 
                         <a
-                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.address)}`}
+                            href="https://www.google.com/maps/search/?api=1&query=LOLLY+SASU+Dakar"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center p-4 bg-white/5 hover:bg-white/10 rounded-2xl border border-white/5 transition-all group cursor-pointer"
