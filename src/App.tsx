@@ -1,30 +1,33 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, MotionConfig } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Services from "./pages/Services";
-import Portfolio from "./pages/Portfolio";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Legal from "./pages/Legal";
-import CGV from "./pages/CGV";
-import NotFound from "./pages/NotFound";
-import Consulting from "./pages/services/Consulting";
-import Formations from "./pages/services/Formations";
-import ProductionVideo from "./pages/services/ProductionVideo";
-import DesignGraphique from "./pages/services/DesignGraphique";
-import Photographie from "./pages/services/Photographie";
-import CommunityManagement from "./pages/services/CommunityManagement";
-import CreationContenu from "./pages/services/CreationContenu";
 import ContactModal from "./components/ContactModal";
 import Preloader from "./components/Preloader";
+import PageLoader from "./components/PageLoader";
 import CustomCursor from "./components/CustomCursor";
 import PageTransition from "./components/PageTransition";
 import WhatsAppButton from "./components/WhatsAppButton";
-import VCard from "./pages/VCard";
 import ScrollToTop from "./components/ScrollToTop";
+
+// Lazy Load Pages
+const Home = lazy(() => import("./pages/Home"));
+const Services = lazy(() => import("./pages/Services"));
+const Portfolio = lazy(() => import("./pages/Portfolio"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Legal = lazy(() => import("./pages/Legal"));
+const CGV = lazy(() => import("./pages/CGV"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const Consulting = lazy(() => import("./pages/services/Consulting"));
+const Formations = lazy(() => import("./pages/services/Formations"));
+const ProductionVideo = lazy(() => import("./pages/services/ProductionVideo"));
+const DesignGraphique = lazy(() => import("./pages/services/DesignGraphique"));
+const Photographie = lazy(() => import("./pages/services/Photographie"));
+const CommunityManagement = lazy(() => import("./pages/services/CommunityManagement"));
+const CreationContenu = lazy(() => import("./pages/services/CreationContenu"));
+const VCard = lazy(() => import("./pages/VCard"));
 
 // Hook to detect mobile screen (width < 768px)
 const useIsMobile = () => {
@@ -74,24 +77,26 @@ function App() {
 
         <main className="flex-grow">
           <AnimatePresence mode="wait">
-            <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-              <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
-              <Route path="/services/consulting" element={<PageTransition><Consulting /></PageTransition>} />
-              <Route path="/services/formations" element={<PageTransition><Formations /></PageTransition>} />
-              <Route path="/services/video" element={<PageTransition><ProductionVideo /></PageTransition>} />
-              <Route path="/services/design" element={<PageTransition><DesignGraphique /></PageTransition>} />
-              <Route path="/services/photo" element={<PageTransition><Photographie /></PageTransition>} />
-              <Route path="/services/social" element={<PageTransition><CommunityManagement /></PageTransition>} />
-              <Route path="/services/content" element={<PageTransition><CreationContenu /></PageTransition>} />
-              <Route path="/portfolio" element={<PageTransition><Portfolio /></PageTransition>} />
-              <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-              <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-              <Route path="/legal" element={<PageTransition><Legal /></PageTransition>} />
-              <Route path="/cgv" element={<PageTransition><CGV /></PageTransition>} />
-              <Route path="/vcard" element={<VCard />} />
-              <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
-            </Routes>
+            <Suspense fallback={<PageLoader />}>
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+                <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
+                <Route path="/services/consulting" element={<PageTransition><Consulting /></PageTransition>} />
+                <Route path="/services/formations" element={<PageTransition><Formations /></PageTransition>} />
+                <Route path="/services/video" element={<PageTransition><ProductionVideo /></PageTransition>} />
+                <Route path="/services/design" element={<PageTransition><DesignGraphique /></PageTransition>} />
+                <Route path="/services/photo" element={<PageTransition><Photographie /></PageTransition>} />
+                <Route path="/services/social" element={<PageTransition><CommunityManagement /></PageTransition>} />
+                <Route path="/services/content" element={<PageTransition><CreationContenu /></PageTransition>} />
+                <Route path="/portfolio" element={<PageTransition><Portfolio /></PageTransition>} />
+                <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+                <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+                <Route path="/legal" element={<PageTransition><Legal /></PageTransition>} />
+                <Route path="/cgv" element={<PageTransition><CGV /></PageTransition>} />
+                <Route path="/vcard" element={<VCard />} />
+                <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+              </Routes>
+            </Suspense>
           </AnimatePresence>
         </main>
 
