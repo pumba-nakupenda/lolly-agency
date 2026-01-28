@@ -279,7 +279,7 @@ const About = () => {
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                                 {[
-                                    { title: "Lolly Academy", desc: "Nos modules de formation certifiante pour monter vos équipes en compétence et garantir l'autonomie.", icon: Award },
+                                    { title: "Lolly Academy", desc: "Nos modules de formation pour monter vos équipes en compétence et garantir l'autonomie.", icon: Award },
                                     { title: "Lolly Studio", desc: "Production 4K, Motion Design et Photographie Corporate de standard international.", icon: Rocket }
                                 ].map((box, i) => (
                                     <motion.div
@@ -316,7 +316,7 @@ const About = () => {
                     <div className="relative z-10 max-w-4xl mx-auto text-center">
                         <span className="bg-primary/20 text-primary font-black uppercase text-[10px] tracking-[0.2em] px-4 py-2 rounded-full mb-8 md:mb-10 inline-block border border-primary/20">Horizon 2030</span>
                         <h2 className="text-3xl md:text-7xl font-serif font-bold text-white mb-8 md:mb-10 tracking-tight leading-tight">Bâtir l'élite créative du <span className="text-primary italic">continent</span>.</h2>
-                        <p className="text-gray-300 text-base md:text-xl leading-relaxed mb-10 md:mb-16 max-w-2xl mx-auto">Notre ambition est claire : devenir la référence absolue de la formation digitale en Afrique de l'Ouest d'ici 5 ans.</p>
+                        <p className="text-gray-300 text-base md:text-xl leading-relaxed mb-10 md:mb-16 max-w-2xl mx-auto">Notre ambition est claire : devenir la référence absolue de la communication et du marketing digital en Afrique de l'Ouest d'ici 5 ans.</p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                             <Button
