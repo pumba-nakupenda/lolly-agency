@@ -64,7 +64,7 @@ function App() {
   const isVCardPage = location.pathname.toLowerCase().startsWith('/vcard');
 
   return (
-    <MotionConfig reducedMotion={isMobile ? "always" : "user"}>
+    <MotionConfig>
       <div className="min-h-screen font-sans text-gray-100 flex flex-col bg-background">
         {!isMobile && !isVCardPage && <Preloader />}
         {!isVCardPage && <CustomCursor />}
