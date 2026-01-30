@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import SEO from "../components/SEO";
 
 const Legal = () => {
     const sections = [
@@ -37,6 +38,11 @@ const Legal = () => {
 
     return (
         <div className="pt-40 pb-20 px-6 min-h-screen bg-transparent relative overflow-hidden">
+            <SEO
+                title="Mentions Légales"
+                description="Consultez les mentions légales de LOLLY Agence, votre partenaire en communication au Sénégal."
+                url="https://lolly.sn/legal"
+            />
             <div className="container mx-auto max-w-4xl relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

@@ -1,8 +1,14 @@
 import { motion } from "framer-motion";
+import SEO from "../components/SEO";
 
 const CGV = () => {
     return (
         <div className="pt-24 md:pt-40 pb-16 md:pb-20 px-6 min-h-screen bg-transparent">
+            <SEO
+                title="CGV"
+                description="Conditions Générales de Vente de LOLLY Agence."
+                url="https://lolly.sn/cgv"
+            />
             <div className="container mx-auto max-w-4xl relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

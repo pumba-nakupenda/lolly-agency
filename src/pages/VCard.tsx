@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import SEO from "../components/SEO";
 import { Phone, Mail, Globe, MapPin, Download, Share2, Linkedin, Instagram, Facebook, Music2, Smartphone, QrCode, X } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import { useIsMobile } from "../hooks/useIsMobile";
@@ -155,6 +156,11 @@ const VCard = () => {
                 />
             </div>
 
+            <SEO
+                title="VCard - Amadou Mbaye Gueye"
+                description="Carte de visite digitale de Amadou Mbaye Gueye, Fondateur de LOLLY Agence."
+                url="https://lolly.sn/vcard"
+            />
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
