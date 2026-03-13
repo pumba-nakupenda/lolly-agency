@@ -123,16 +123,23 @@ Correct. `Sitemap: https://lolly.sn/sitemap.xml` est bien défini.
 | Problème | Détail | Sévérité |
 |----------|--------|----------|
 | **`prefers-reduced-motion` non supporté** | Les utilisateurs avec cette préférence OS ne voient aucune réduction d'animation. Framer Motion et CSS continuent d'animer. | **Haute** |
-| **Bouton fermer modal sans aria-label** | `ContactModal.tsx:105-110` — le bouton `<X>` n'a pas d'`aria-label`. | **Moyenne** |
-| **Labels de formulaire non associés** | Les `<label>` du modal contact ne sont pas liés aux inputs via `htmlFor`/`id`. | **Moyenne** |
-| **Skip-to-content manquant** | Aucun lien "Aller au contenu" pour la navigation au clavier. | **Moyenne** |
 | **Focus trap manquant sur le modal** | Le modal de contact ne piège pas le focus — le tab peut sortir du modal. | **Haute** |
+| **Bouton fermer modal sans aria-label** | `ContactModal.tsx:105-110` — le bouton `<X>` n'a pas d'`aria-label`. | **Moyenne** |
+| **Labels de formulaire non associés** | Les `<label>` du modal contact et de `ContactClient.tsx` ne sont pas liés aux inputs via `htmlFor`/`id`. | **Moyenne** |
+| **Skip-to-content manquant** | Aucun lien "Aller au contenu" pour la navigation au clavier. | **Moyenne** |
+| **Messages d'erreur non annoncés** | `ContactClient.tsx:309-317` — les erreurs de formulaire n'ont pas de `role="alert"` ou `aria-live="polite"` pour les lecteurs d'écran. | **Moyenne** |
+| **Marquee sans pause** | `Marquee.tsx` — animation infinie sans mécanisme de pause (risque pour utilisateurs photosensibles). | **Moyenne** |
+| **Focus indicators manquants** | `WhatsAppButton.tsx` et `ScrollToTop` — boutons custom sans `focus-visible` visible. | **Moyenne** |
+| **Contraste texte muted** | `--color-text-muted: #A3A3A3` sur fond `#050505` — ratio ~5.5:1 (limite WCAG AA). Les placeholders de formulaires en `text-gray-600` sont en dessous du seuil. | **Moyenne** |
 | **Custom cursor sans fallback** | `CustomCursor` remplace le curseur natif — les utilisateurs avec des besoins spécifiques perdent leur curseur personnalisé. | **Basse** |
+| **Iframe Google Maps sans sandbox** | `ContactClient.tsx:421` — l'iframe Google Maps n'a pas d'attribut `sandbox`. | **Basse** |
 
 ### 3.2 Bonnes pratiques observées ✓
 - `aria-label` sur le bouton hamburger de la Navbar
 - `aria-label` sur les liens sociaux du Footer
 - Attributs `target="_blank"` avec `rel="noopener noreferrer"`
+- Utilisation de balises sémantiques (`<nav>`, `<main>`, `<footer>`, `<section>`)
+- Iframe Google Maps avec attribut `title`
 
 ---
 
@@ -165,10 +172,13 @@ Correct. `Sitemap: https://lolly.sn/sitemap.xml` est bien défini.
 
 | Problème | Détail | Sévérité |
 |----------|--------|----------|
-| **Type `any` utilisé** | `ClientLayout.tsx:26` (`e: any`), `ContactModal.tsx:80` (`error: any`), `sanityClient.ts:13` (`source: any`), `JsonLd.tsx:5` (`data: any`) | **Moyenne** |
+| **Type `any` utilisé (22 fichiers)** | `ClientLayout.tsx:26`, `ContactModal.tsx:80`, `HomeClient.tsx:18,31`, `sanityClient.ts:13`, `JsonLd.tsx:5`, etc. | **Moyenne** |
 | **Code dupliqué** | L'URL du webhook et la logique de soumission sont dupliquées entre `ContactModal.tsx` et `ContactClient.tsx`. | **Moyenne** |
 | **Pas de `next.config`** | Impossible de configurer les optimisations Next.js, les headers, les rewrites, etc. | **Haute** |
+| **Composants trop volumineux** | `ContactClient.tsx` (455 lignes), `HomeClient.tsx` (228+ lignes) — à découper en sous-composants. | **Basse** |
+| **`console.error` en production** | `page.tsx:73`, `blog/[slug]/page.tsx:26,47` — les erreurs sont loguées en console en production. | **Basse** |
 | **Pas de lib/ pour les utilitaires** | Le dossier `src/lib/` n'existe pas. `sanityClient.ts` est à la racine de `src/`. | **Basse** |
+| **Composant inutilisé** | `PageLoader.tsx` — importé nulle part, code mort. | **Basse** |
 
 ---
 
