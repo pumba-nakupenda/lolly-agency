@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Mail, Phone, MapPin, Loader2, CheckCircle2 } from "lucide-react";
+// Phone field removed from modal form for simplicity - full form available on /contact page
 import { Button } from "./ui/Button";
 import { useState, useEffect } from "react";
 
@@ -17,9 +18,7 @@ const ContactModal = ({ isOpen, onClose, title = "Contactez-nous", prefilledSubj
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        phone: "",
-        countryCode: "+221",
-        subject: "Demande de devis",
+        subject: prefilledSubject || "Demande de devis",
         message: ""
     });
 
@@ -30,23 +29,6 @@ const ContactModal = ({ isOpen, onClose, title = "Contactez-nous", prefilledSubj
         }
     }, [prefilledSubject, isOpen]);
 
-    const countries = [
-        { code: "+221", label: "SN" },
-        { code: "+225", label: "CI" },
-        { code: "+33", label: "FR" },
-        { code: "+223", label: "ML" },
-        { code: "+226", label: "BF" },
-    ];
-
-    const subjects = [
-        "Demande de devis",
-        "Formation Digitale",
-        "Consulting / Audit",
-        "Production Audiovisuelle",
-        "Design & Branding",
-        "Autre"
-    ];
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setStatus('loading');
@@ -54,7 +36,7 @@ const ContactModal = ({ isOpen, onClose, title = "Contactez-nous", prefilledSubj
         try {
             const dataToSend = {
                 ...formData,
-                fullPhone: formData.phone ? `${formData.countryCode} ${formData.phone}` : "Non renseigné",
+                fullPhone: "Non renseigné",
                 source: "Modal Pop-up",
                 timestamp: new Date().toISOString()
             };
@@ -72,7 +54,7 @@ const ContactModal = ({ isOpen, onClose, title = "Contactez-nous", prefilledSubj
                 setTimeout(() => {
                     onClose();
                     setStatus('idle');
-                    setFormData({ name: "", email: "", phone: "", countryCode: "+221", subject: "Demande de devis", message: "" });
+                    setFormData({ name: "", email: "", subject: "Demande de devis", message: "" });
                 }, 2000);
             } else {
                 throw new Error(`Server error ${response.status}`);
@@ -186,39 +168,6 @@ const ContactModal = ({ isOpen, onClose, title = "Contactez-nous", prefilledSubj
                                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                                 />
                                             </div>
-                                            <div>
-                                                <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 ml-1">Téléphone (facultatif)</label>
-                                                <div className="flex gap-2">
-                                                    <select
-                                                        className="bg-background border border-white/5 rounded-xl px-2 py-2.5 text-white focus:outline-none focus:border-primary transition-all text-[11px] w-20"
-                                                        value={formData.countryCode}
-                                                        onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-                                                    >
-                                                        {countries.map(c => (
-                                                            <option key={c.code} value={c.code} className="bg-surface">{c.label}</option>
-                                                        ))}
-                                                    </select>
-                                                    <input
-                                                        type="tel"
-                                                        className="flex-1 bg-background border border-white/5 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-primary transition-all text-sm shadow-inner"
-                                                        placeholder="77 000 00 00"
-                                                        value={formData.phone}
-                                                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 ml-1">Sujet *</label>
-                                            <select
-                                                className="w-full bg-background border border-white/5 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-primary transition-all text-sm shadow-inner"
-                                                value={formData.subject}
-                                                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                            >
-                                                {subjects.map(sub => (
-                                                    <option key={sub} value={sub} className="bg-surface">{sub}</option>
-                                                ))}
-                                            </select>
                                         </div>
                                         <div>
                                             <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5 ml-1">Message *</label>

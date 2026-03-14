@@ -6,11 +6,9 @@ import { MotionConfig } from "framer-motion";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import ContactModal from "./ContactModal";
-import Preloader from "./Preloader";
-import CustomCursor from "./CustomCursor";
 import WhatsAppButton from "./WhatsAppButton";
 import ScrollToTop from "./ScrollToTop";
-import { useIsMobile } from "../hooks/useIsMobile";
+
 
 export default function ClientLayout({
     children,
@@ -20,8 +18,6 @@ export default function ClientLayout({
     const pathname = usePathname();
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
     const [modalSubject, setModalSubject] = useState("");
-    const isMobile = useIsMobile();
-
     useEffect(() => {
         const handleOpenContact = (e: any) => {
             if (e.detail && e.detail.subject) {
@@ -41,8 +37,6 @@ export default function ClientLayout({
     return (
         <MotionConfig>
             <div className="min-h-screen font-sans text-gray-100 flex flex-col bg-background">
-                {!isMobile && !isVCardPage && <Preloader />}
-                {!isVCardPage && <CustomCursor />}
                 {!isVCardPage && <Navbar />}
                 <ScrollToTop />
                 <ContactModal

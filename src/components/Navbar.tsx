@@ -41,7 +41,7 @@ const Navbar = () => {
             ]
         },
         { name: "Portfolio", href: "/portfolio" },
-        { name: "Le Lab", href: "/blog" },
+        { name: "Blog", href: "/blog" },
         { name: "À propos", href: "/about" },
         { name: "Contact", href: "/contact" },
     ];
